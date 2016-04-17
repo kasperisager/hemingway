@@ -88,6 +88,22 @@ namespace lsh {
   }
 
   /**
+   * Compupte the hash of this vector.
+   *
+   * @return The hash of this vector.
+   */
+  int vector::hash() {
+    unsigned int n = this->components_.size();
+    unsigned long b = 7;
+
+    for (int i = 0; i < n; i++) {
+      b = 31 * b + this->components_[i];
+    }
+
+    return b ^ (b >> 32);
+  }
+
+  /**
    * Compute the distance between two vectors.
    *
    * @see http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetKernighan

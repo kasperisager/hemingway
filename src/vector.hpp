@@ -56,6 +56,13 @@ namespace lsh {
       bool operator==(vector& vector);
 
       /**
+       * Compupte the hash of this vector.
+       *
+       * @return The hash of this vector.
+       */
+      int hash();
+
+      /**
        * Compute the distance between two vectors.
        *
        * @see http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetKernighan
