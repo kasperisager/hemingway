@@ -78,6 +78,16 @@ namespace lsh {
   }
 
   /**
+   * Check if this vector equals another vector.
+   *
+   * @param vector The other vector.
+   * @return `true` if this vector equals the other vector, otherwise `false`.
+   */
+  bool vector::operator==(vector& vector) {
+    return vector::distance(*this, vector) == 0;
+  }
+
+  /**
    * Compute the distance between two vectors.
    *
    * @see http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetKernighan

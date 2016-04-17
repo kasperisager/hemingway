@@ -48,6 +48,14 @@ namespace lsh {
       std::string to_string();
 
       /**
+       * Check if this vector equals another vector.
+       *
+       * @param vector The other vector.
+       * @return `true` if this vector equals the other vector, otherwise `false`.
+       */
+      bool operator==(vector& vector);
+
+      /**
        * Compute the distance between two vectors.
        *
        * @see http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetKernighan
