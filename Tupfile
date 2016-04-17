@@ -1,0 +1,4 @@
+CFLAGS += -std=c++11
+
+: foreach src/*.cpp |> g++ $(CFLAGS) -c %f -o %o |> %B.o
+: *.o |> ar crs %o %f |> lsh.a
