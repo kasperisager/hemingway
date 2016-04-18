@@ -7,7 +7,7 @@ namespace lsh {
    *
    * @param components The components of the vector.
    */
-  vector::vector(std::vector<bool> components) {
+  vector::vector(const std::vector<bool>& components) {
     this->size_ = components.size();
 
     unsigned int s = this->size_;
@@ -35,7 +35,7 @@ namespace lsh {
    *
    * @return The number of components in this vector.
    */
-  unsigned int vector::size() {
+  unsigned int vector::size() const {
     return this->size_;
   }
 
@@ -45,7 +45,7 @@ namespace lsh {
    * @param index The index of the component to get.
    * @return The component at the index.
    */
-  bool vector::get(int index) {
+  bool vector::get(int index) const {
     unsigned int s = this->size_;
     unsigned char c = sizeof(s) * s;
 
@@ -65,7 +65,7 @@ namespace lsh {
    *
    * @return The string representation of the vector.
    */
-  std::string vector::to_string() {
+  std::string vector::to_string() const {
     unsigned int n = this->size_;
 
     std::string value = "Vector[";
@@ -83,7 +83,7 @@ namespace lsh {
    * @param vector The other vector.
    * @return `true` if this vector equals the other vector, otherwise `false`.
    */
-  bool vector::operator==(vector& vector) {
+  bool vector::operator==(const vector& vector) const {
     return vector::distance(*this, vector) == 0;
   }
 
@@ -92,7 +92,7 @@ namespace lsh {
    *
    * @return The hash of this vector.
    */
-  int vector::hash() {
+  int vector::hash() const {
     unsigned int n = this->components_.size();
     unsigned long b = 7;
 
@@ -112,7 +112,7 @@ namespace lsh {
    * @param v The second vector.
    * @return The distance between the two vectors.
    */
-  int vector::distance(vector& u, vector& v) {
+  int vector::distance(const vector& u, const vector& v) {
     unsigned int d = 0;
     unsigned int n = u.components_.size();
 

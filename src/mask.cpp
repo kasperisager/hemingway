@@ -26,7 +26,7 @@ namespace lsh {
    * @param vector The vector to project.
    * @return The projected vector.
    */
-  vector mask::project(vector vector) {
+  vector mask::project(const vector& vector) const {
     unsigned int w = this->width_;
 
     std::vector<bool> c;

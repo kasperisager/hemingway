@@ -23,14 +23,14 @@ namespace lsh {
        *
        * @param components The components of the vector.
        */
-      vector(std::vector<bool> components);
+      vector(const std::vector<bool>& components);
 
       /**
        * Get the number of components in this vector.
        *
        * @return The number of components in this vector.
        */
-      unsigned int size();
+      unsigned int size() const;
 
       /**
        * Get the component at the specified index of this vector.
@@ -38,14 +38,14 @@ namespace lsh {
        * @param index The index of the component to get.
        * @return The component at the index.
        */
-      bool get(int index);
+      bool get(int index) const;
 
       /**
        * Get a string representation of this vector.
        *
        * @return The string representation of the vector.
        */
-      std::string to_string();
+      std::string to_string() const;
 
       /**
        * Check if this vector equals another vector.
@@ -53,14 +53,14 @@ namespace lsh {
        * @param vector The other vector.
        * @return `true` if this vector equals the other vector, otherwise `false`.
        */
-      bool operator==(vector& vector);
+      bool operator==(const vector& vector) const;
 
       /**
        * Compupte the hash of this vector.
        *
        * @return The hash of this vector.
        */
-      int hash();
+      int hash() const;
 
       /**
        * Compute the distance between two vectors.
@@ -71,7 +71,7 @@ namespace lsh {
        * @param v The second vector.
        * @return The distance between the two vectors.
        */
-      static int distance(vector& u, vector& v);
+      static int distance(const vector& u, const vector& v);
   };
 }
 
@@ -87,7 +87,7 @@ namespace std {
        *
        * @return The hash of the vector.
        */
-      size_t operator()(lsh::vector& vector) {
+      size_t operator()(const lsh::vector& vector) const {
         return vector.hash();
       }
   };

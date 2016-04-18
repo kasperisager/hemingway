@@ -33,6 +33,6 @@ namespace lsh {
        * @param vector The vector to project.
        * @return The projected vector.
        */
-      vector project(vector vector);
+      vector project(const vector& vector) const;
   };
 }
