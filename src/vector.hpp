@@ -74,3 +74,21 @@ namespace lsh {
       static int distance(vector& u, vector& v);
   };
 }
+
+namespace std {
+  template <> struct hash<lsh::vector> {
+    public:
+      /**
+       * Compute the hash of a vector.
+       *
+       * This bit of ugliness is required in order for the C++ standard library
+       * to utilise LSH vectors in hash-based data structures such as the unordered
+       * sets used in lookup tables.
+       *
+       * @return The hash of the vector.
+       */
+      size_t operator()(lsh::vector& vector) {
+        return vector.hash();
+      }
+  };
+}
