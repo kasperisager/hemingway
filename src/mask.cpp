@@ -15,7 +15,7 @@ namespace lsh {
 
     this->width_ = width;
 
-    for (int i = 0; i < width; i++) {
+    for (unsigned int i = 0; i < width; i++) {
       this->indices_.push_back(indices(generator));
     }
   }
@@ -31,7 +31,7 @@ namespace lsh {
 
     std::vector<bool> c;
 
-    for (int i = 0; i < w; i++) {
+    for (unsigned int i = 0; i < w; i++) {
       c.push_back(vector.get(this->indices_[i]));
     }
 

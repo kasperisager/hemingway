@@ -1,4 +1,5 @@
 CFLAGS += -std=c++11
+CFLAGS += -W -Wall -Werror
 
 !cc = |> g++ $(CFLAGS) %f -o %o |> %B.o
 !ar = |> ar crs %o %f |>

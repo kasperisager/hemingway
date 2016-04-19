@@ -12,7 +12,7 @@ namespace lsh {
   table::table(unsigned int dimensions, unsigned int width, unsigned int partitions) {
     this->dimensions_ = dimensions;
 
-    for (int i = 0; i < partitions; i++) {
+    for (unsigned int i = 0; i < partitions; i++) {
       this->masks_.push_back(mask(dimensions, width));
       this->partitions_.push_back(partition());
     }
@@ -35,7 +35,7 @@ namespace lsh {
   void table::add(vector v) {
     unsigned int n = this->partitions_.size();
 
-    for (int i = 0; i < n; i++) {
+    for (unsigned int i = 0; i < n; i++) {
       vector k = this->masks_[i].project(v);
       bucket* b = &this->partitions_[i][k];
 
@@ -58,16 +58,16 @@ namespace lsh {
     vector* best_c = NULL;
 
     // Keep track of the distance to the best candidate.
-    unsigned int best_d = -1;
+    unsigned int best_d;
 
-    for (int i = 0; i < n; i++) {
+    for (unsigned int i = 0; i < n; i++) {
       vector k = this->masks_[i].project(v);
       bucket* b = &this->partitions_[i][k];
 
       for (vector& c: *b) {
         unsigned int d = vector::distance(v, c);
 
-        if (!best_c || best_d == -1 || d < best_d) {
+        if (!best_c || d < best_d) {
           best_c = &c;
           best_d = d;
         }

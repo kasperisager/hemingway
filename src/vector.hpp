@@ -38,7 +38,7 @@ namespace lsh {
        * @param index The index of the component to get.
        * @return The component at the index.
        */
-      bool get(int index) const;
+      bool get(unsigned int index) const;
 
       /**
        * Get a string representation of this vector.

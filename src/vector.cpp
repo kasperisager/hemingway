@@ -21,7 +21,7 @@ namespace lsh {
 
       unsigned int n = i + c > s ? s - i : c;
 
-      for (int j = 0; j < n; j++) {
+      for (unsigned int j = 0; j < n; j++) {
         this->components_[k] |= components[i + j] << (n - j - 1);
       }
 
@@ -45,11 +45,11 @@ namespace lsh {
    * @param index The index of the component to get.
    * @return The component at the index.
    */
-  bool vector::get(int index) const {
+  bool vector::get(unsigned int index) const {
     unsigned int s = this->size_;
     unsigned char c = sizeof(s) * s;
 
-    if (index < 0 || index >= s) {
+    if (index >= s) {
       return -1;
     }
 
@@ -70,7 +70,7 @@ namespace lsh {
 
     std::string value = "Vector[";
 
-    for (int i = 0; i < n; i++) {
+    for (unsigned int i = 0; i < n; i++) {
       value += std::to_string(this->get(i));
     }
 
@@ -96,7 +96,7 @@ namespace lsh {
     unsigned int n = this->components_.size();
     unsigned long b = 7;
 
-    for (int i = 0; i < n; i++) {
+    for (unsigned int i = 0; i < n; i++) {
       b = 31 * b + this->components_[i];
     }
 
@@ -116,8 +116,8 @@ namespace lsh {
     unsigned int d = 0;
     unsigned int n = u.components_.size();
 
-    for (int i = 0; i < n; i++) {
-      int x = u.components_[i] ^ v.components_[i];
+    for (unsigned int i = 0; i < n; i++) {
+      unsigned int x = u.components_[i] ^ v.components_[i];
 
       while (x) {
         x &= x - 1;
