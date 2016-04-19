@@ -6,6 +6,10 @@
 #include "vector.hpp"
 
 namespace lsh {
+  /**
+   * The mask class acts as sort of a bit mask that can reduce the dimensionality of
+   * vectors by a random projection.
+   */
   class mask {
     private:
       /**
