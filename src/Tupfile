@@ -1,4 +1,3 @@
-CFLAGS += -std=c++11
-
-: foreach *.cpp |> g++ $(CFLAGS) -c %f -o %o |> %B.o {output}
-: {output} |> ar crs %o %f |> lsh.a
+include_rules
+: foreach *.cpp |> !cc -c |> {output}
+: {output} |> !ar |> lsh.a
