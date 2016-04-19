@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <unordered_map>
+#include "vector.hpp"
 #include "mask.hpp"
 
 namespace lsh {
