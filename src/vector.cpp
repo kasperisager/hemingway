@@ -3,6 +3,21 @@
 
 namespace lsh {
   /**
+   * Create a new vector from existing component chunks.
+   *
+   * @param components The existing component chunks.
+   * @param size The number of components.
+   */
+  vector::vector(const std::vector<unsigned int>& components, unsigned int size) {
+    this->size_ = size;
+    unsigned int n = components.size();
+
+    for (unsigned int i = 0; i < n; i++) {
+      this->components_.push_back(components[i]);
+    }
+  }
+
+  /**
    * Construct a new vector.
    *
    * @param components The components of the vector.
@@ -102,6 +117,23 @@ namespace lsh {
     }
 
     return d;
+  }
+
+  /**
+   * Compute the bitwise AND of this and another vector.
+   *
+   * @param vector The other vector.
+   * @return The bitwise AND of this and another vector.
+   */
+  vector vector::operator&(const vector& vector) const {
+    std::vector<unsigned int> c;
+    unsigned int n = this->components_.size();
+
+    for (unsigned int i = 0; i < n; i++) {
+      c.push_back(this->components_[i] & vector.components_[i]);
+    }
+
+    return lsh::vector(c, this->size_);
   }
 
   /**

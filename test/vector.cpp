@@ -37,6 +37,14 @@ TEST_CASE("#* computes the dot product of two vectors") {
   REQUIRE(v1 * v2 == 2);
 }
 
+TEST_CASE("#& computes the bitwise AND of two vectors") {
+  lsh::vector v1({1, 1, 0, 0});
+  lsh::vector v2({1, 0, 0, 1});
+  lsh::vector v3({1, 0, 0, 0});
+
+  REQUIRE((v1 & v2) == v3);
+}
+
 TEST_CASE("#hash returns the hash value of a vector") {
   REQUIRE(v.hash() == 226);
 }

@@ -18,6 +18,14 @@ namespace lsh {
        */
       std::vector<unsigned int> components_;
 
+      /**
+       * Create a new vector from existing component chunks.
+       *
+       * @param components The existing component chunks.
+       * @param size The number of components.
+       */
+      vector(const std::vector<unsigned int>& components, unsigned int size);
+
     public:
       /**
        * Construct a new vector.
@@ -63,6 +71,14 @@ namespace lsh {
        * @return The dot product of this and another vector.
        */
       unsigned int operator*(const vector& vector) const;
+
+      /**
+       * Compute the bitwise AND of this and another vector.
+       *
+       * @param vector The other vector.
+       * @return The bitwise AND of this and another vector.
+       */
+      vector operator&(const vector& vector) const;
 
       /**
        * Compupte the hash of this vector.
