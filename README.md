@@ -18,6 +18,8 @@ Hemingway can be built using any compiler that supports C++11. A [tup](http://gi
 $ tup init && tup
 ```
 
+This will compile the implementation files to `src/lsh.a`. Grab this along with the header files and you'll be all set! You can check out the section for a guide on how to actually use the library.
+
 ## Usage
 
 ## API
