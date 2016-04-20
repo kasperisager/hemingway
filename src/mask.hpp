@@ -88,14 +88,5 @@ namespace lsh {
        * @return The projected vector.
        */
       vector project(const vector& vector) const;
-
-      /**
-       * Create a random mapping.
-       *
-       * @param dimensions The number of vectors in the mapping.
-       * @param radius The radius that the mapping should cover.
-       * @return The random mapping.
-       */
-      static mapping create_mapping(unsigned int dimensions, unsigned int radius);
   };
 }

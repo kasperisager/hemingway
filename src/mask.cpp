@@ -71,24 +71,4 @@ namespace lsh {
   vector covering_mask::project(const vector& vector) const {
     return *this->mask_ & vector;
   }
-
-  /**
-   * Create a random mapping.
-   *
-   * @param dimensions The number of vectors in the mapping.
-   * @param radius The radius that the mapping should cover.
-   * @return The random mapping.
-   */
-  covering_mask::mapping covering_mask::create_mapping(unsigned int dimensions, unsigned int radius) {
-    mapping m;
-
-    // Compute the number of dimensions required in vectors of the mapping.
-    unsigned int n = 1 << (radius + 1);
-
-    for (unsigned int i = 0; i < dimensions; i++) {
-      m.push_back(vector::random(n));
-    }
-
-    return m;
-  }
 }

@@ -25,9 +25,13 @@ namespace lsh {
    * @param radius The radius to cover in the table.
    */
   table::table(unsigned int dimensions, unsigned int radius) {
-    covering_mask::mapping m = covering_mask::create_mapping(dimensions, radius);
-
     unsigned int n = (1 << (radius + 1)) - 1;
+
+    covering_mask::mapping m;
+
+    for (unsigned int i = 0; i < dimensions; i++) {
+      m.push_back(vector::random(n));
+    }
 
     for (unsigned int i = 0; i < n; i++) {
       this->masks_.push_back(covering_mask(dimensions, i, m));
