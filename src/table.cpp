@@ -30,7 +30,7 @@ namespace lsh {
     covering_mask::mapping m;
 
     for (unsigned int i = 0; i < dimensions; i++) {
-      m.push_back(vector::random(n));
+      m.push_back(vector::random(n + 1));
     }
 
     for (unsigned int i = 0; i < n; i++) {
