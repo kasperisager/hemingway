@@ -24,6 +24,8 @@ $ tup init && tup
 
 ## Authors
 
+This library came about as a result of the Advanced Algorithms seminar held at the IT University of Copenhagen. We would like to give thanks to our supervisors for not only their help but also their immense patience during the seminar.
+
 [<img src=https://github.com/kasperisager.png width=125>](http://github.com/kasperisager) | [<img src=https://github.com/Nemeczek.png width=125>](http://github.com/Nemeczek)
 --- | ---
 [Kasper Kronborg Isager](http://github.com/kasperisager) | [Radoslaw Niemczyk](http://github.com/Nemeczek)
