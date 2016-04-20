@@ -66,4 +66,5 @@ This library came about as a result of the Advanced Algorithms seminar held at t
 
 ## License
 
-Copyright &copy; 2016 [Kasper Kronborg Isager](https://github.com/kasperisager). Licensed under the terms of the [MIT license](LICENSE.md).
+Copyright &copy; 2016 [Kasper Kronborg Isager](https://github.com/kasperisager)
+and [Radoslaw Niemczyk](https://github.com/Nemeczek). Licensed under the terms of the [MIT license](LICENSE.md).
