@@ -30,6 +30,13 @@ TEST_CASE("#== checks if a vector is equal to another vector") {
   REQUIRE(!(v2 == v3));
 }
 
+TEST_CASE("#* computes the dot product of two vectors") {
+  lsh::vector v1({1, 1, 1, 0});
+  lsh::vector v2({1, 0, 1, 0});
+
+  REQUIRE(v1 * v2 == 2);
+}
+
 TEST_CASE("#hash returns the hash value of a vector") {
   REQUIRE(v.hash() == 226);
 }

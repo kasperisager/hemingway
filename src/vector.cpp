@@ -88,6 +88,23 @@ namespace lsh {
   }
 
   /**
+   * Compute the dot product of this and another vector.
+   *
+   * @param vector The other vector.
+   * @return The dot product of this and another vector.
+   */
+  unsigned int vector::operator*(const vector& vector) const {
+    unsigned int d = 0;
+    unsigned int n = this->components_.size();
+
+    for (unsigned int i = 0; i < n; i++) {
+      d += __builtin_popcount(this->components_[i] & vector.components_[i]);
+    }
+
+    return d;
+  }
+
+  /**
    * Compupte the hash of this vector.
    *
    * @return The hash of this vector.

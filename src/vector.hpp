@@ -57,6 +57,14 @@ namespace lsh {
       bool operator==(const vector& vector) const;
 
       /**
+       * Compute the dot product of this and another vector.
+       *
+       * @param vector The other vector.
+       * @return The dot product of this and another vector.
+       */
+      unsigned int operator*(const vector& vector) const;
+
+      /**
        * Compupte the hash of this vector.
        *
        * @return The hash of this vector.
