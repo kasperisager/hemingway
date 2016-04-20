@@ -60,11 +60,24 @@ namespace lsh {
 
     private:
       /**
-       * The random mapping to use for this mask.
+       * The vector mask to use.
        */
-      mapping mapping_;
+      vector* mask_;
 
     public:
+      /**
+       * Construct a new covering mask.
+       *
+       * @param dimensionality The dimensionality of vectors to mask.
+       * @param mapping The random vector mapping to use for the mask.
+       */
+      covering_mask(unsigned int dimensions, mapping mapping);
+
+      /**
+       * Destruct this covering mask.
+       */
+      ~covering_mask();
+
       /**
        * Project a vector, reducing it to a dimensionality specified by this mask.
        *
