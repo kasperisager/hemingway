@@ -32,7 +32,7 @@ namespace lsh {
       /**
        * The bit masks used for constructing vector projections.
        */
-      std::vector<mask> masks_;
+      std::vector<std::unique_ptr<mask>> masks_;
 
       /**
        * The partitions containing the buckets of vectors.

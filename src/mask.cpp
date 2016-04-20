@@ -52,14 +52,9 @@ namespace lsh {
       c[j] = (mapping[j] * vector) % 2;
     }
 
-    this->mask_ = new lsh::vector(c);
-  }
+    std::unique_ptr<lsh::vector> mask(new lsh::vector(c));
 
-  /**
-   * Destruct this covering mask.
-   */
-  covering_mask::~covering_mask() {
-    delete this->mask_;
+    this->mask_ = std::move(mask);
   }
 
   /**

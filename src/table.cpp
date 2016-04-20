@@ -13,7 +13,8 @@ namespace lsh {
     this->dimensions_ = dimensions;
 
     for (unsigned int i = 0; i < partitions; i++) {
-      this->masks_.push_back(random_mask(dimensions, width));
+      std::unique_ptr<mask> mask(new random_mask(dimensions, width));
+      this->masks_.push_back(std::move(mask));
       this->partitions_.push_back(partition());
     }
   }
@@ -34,7 +35,8 @@ namespace lsh {
     }
 
     for (unsigned int i = 0; i < n; i++) {
-      this->masks_.push_back(covering_mask(dimensions, i, m));
+      std::unique_ptr<mask> mask(new covering_mask(dimensions, i, m));
+      this->masks_.push_back(std::move(mask));
       this->partitions_.push_back(partition());
     }
   }
@@ -57,7 +59,7 @@ namespace lsh {
     unsigned int n = this->partitions_.size();
 
     for (unsigned int i = 0; i < n; i++) {
-      lsh::vector k = this->masks_[i].project(vector);
+      lsh::vector k = this->masks_[i]->project(vector);
       bucket* b = &this->partitions_[i][k];
 
       b->push_back(vector);
@@ -82,7 +84,7 @@ namespace lsh {
     unsigned int best_d = 0;
 
     for (unsigned int i = 0; i < n; i++) {
-      lsh::vector k = this->masks_[i].project(vector);
+      lsh::vector k = this->masks_[i]->project(vector);
       bucket* b = &this->partitions_[i][k];
 
       for (lsh::vector& c: *b) {

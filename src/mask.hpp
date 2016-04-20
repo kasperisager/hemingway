@@ -18,9 +18,7 @@ namespace lsh {
        * @param vector The vector to project.
        * @return The projected vector.
        */
-      virtual vector project(const vector& vector) const {
-        return vector;
-      }
+      virtual vector project(const vector& vector) const = 0;
   };
 
   class random_mask: public mask {
@@ -50,7 +48,7 @@ namespace lsh {
        * @param vector The vector to project.
        * @return The projected vector.
        */
-      vector project(const vector& vector) const;
+      vector project(const vector& vector) const override;
   };
 
   class covering_mask: public mask {
@@ -64,7 +62,7 @@ namespace lsh {
       /**
        * The vector mask to use.
        */
-      vector* mask_;
+      std::unique_ptr<vector> mask_;
 
     public:
       /**
@@ -77,16 +75,11 @@ namespace lsh {
       covering_mask(unsigned int dimensions, unsigned int vector, mapping mapping);
 
       /**
-       * Destruct this covering mask.
-       */
-      ~covering_mask();
-
-      /**
        * Project a vector, reducing it to a dimensionality specified by this mask.
        *
        * @param vector The vector to project.
        * @return The projected vector.
        */
-      vector project(const vector& vector) const;
+      vector project(const vector& vector) const override;
   };
 }
