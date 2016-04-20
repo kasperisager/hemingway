@@ -28,7 +28,7 @@ namespace lsh {
 
     public:
       /**
-       * Construct a new vector.
+       * Create a new vector.
        *
        * @param components The components of the vector.
        */
