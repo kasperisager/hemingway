@@ -35,7 +35,7 @@ namespace lsh {
 
     public:
       /**
-       * Construct a new mask.
+       * Construct a new random mask.
        *
        * @param dimensionality The dimensionality of vectors to mask.
        * @param width The number of dimensions in vector projections.
