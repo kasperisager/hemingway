@@ -50,6 +50,14 @@ namespace lsh {
       table(unsigned int dimensions, unsigned int width, unsigned int partitions);
 
       /**
+       * Construct a new lookup table.
+       *
+       * @param dimensions The number of dimensions of vectors in the table.
+       * @param radius The radius to cover in the table.
+       */
+      table(unsigned int dimensions, unsigned int radius);
+
+      /**
        * Get the number of vectors in this lookup table.
        *
        * @return The number of vectors in this lookup table.
