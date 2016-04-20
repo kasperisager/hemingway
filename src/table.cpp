@@ -19,6 +19,23 @@ namespace lsh {
   }
 
   /**
+   * Construct a new lookup table.
+   *
+   * @param dimensions The number of dimensions of vectors in the table.
+   * @param radius The radius to cover in the table.
+   */
+  table::table(unsigned int dimensions, unsigned int radius) {
+    covering_mask::mapping m = covering_mask::create_mapping(dimensions, radius);
+
+    unsigned int n = (1 << (radius + 1)) - 1;
+
+    for (unsigned int i = 0; i < n; i++) {
+      this->masks_.push_back(covering_mask(dimensions, i, m));
+      this->partitions_.push_back(partition());
+    }
+  }
+
+  /**
    * Get the number of vectors in this lookup table.
    *
    * @return The number of vectors in this lookup table.
