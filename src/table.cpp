@@ -58,7 +58,7 @@ namespace lsh {
     vector* best_c = NULL;
 
     // Keep track of the distance to the best candidate.
-    unsigned int best_d;
+    unsigned int best_d = 0;
 
     for (unsigned int i = 0; i < n; i++) {
       vector k = this->masks_[i].project(v);
