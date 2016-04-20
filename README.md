@@ -22,6 +22,38 @@ This will compile the implementation files to `src/lsh.a`. Grab this along with 
 
 ## Usage
 
+The design of Hemingway is fairly simple in that it exposes only two classes for all your LSH needs: `lsh::vector` and `lsh::table`. The `lsh::vector` class is used for representing bit vectors of arbitrary dimensionality and is constructed by supplying a `std::vector<bool>` containing the components of the vector:
+
+```cpp
+lsh::vector v({1, 0, 0, 0, 1, 1, 0, 1});
+```
+
+The `lsh::table` class is used for representing a lookup table containing partitions of vector buckets. Two LSH schemes are currently supported in lookup tables:
+
+__Classic:__ In this scheme, vectors are hashed into buckets using random bit masks associated with each partition. When constructing this table, 3 parameters are specified: The dimensionality of input vectors, the width of the vector hashes, and the number of partitions to use:
+
+```cpp
+lsh::table t(8, 3, 4);
+```
+
+__Covering:__ In this scheme, vectors are hashed into buckets using carefully constructed bit masks that ensure that the hashes of vectors within a given radius from each other will collide. Only two parameters are specified when constructed this table: The dimensionality of input vectors, and the radius that should be covered:
+
+```cpp
+lsh::table t(8, 2);
+```
+
+Once you constructed your table, then go ahead and add your vectors:
+
+```cpp
+t.add(v);
+```
+
+Once you've added all your vectors you can perform queries against the lookup table:
+
+```cpp
+lsh::vector r = t.query(lsh::vector({1, 0, 1, 0, 1, 1, 0, 0}));
+```
+
 ## API
 
 ## Authors
