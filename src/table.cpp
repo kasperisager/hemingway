@@ -23,7 +23,7 @@ namespace lsh {
    *
    * @return The number of vectors in this lookup table.
    */
-  int table::size() const {
+  unsigned int table::size() const {
     return this->size_;
   }
 

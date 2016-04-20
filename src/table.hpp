@@ -62,7 +62,7 @@ namespace lsh {
        *
        * @return The number of vectors in this lookup table.
        */
-      int size() const;
+      unsigned int size() const;
 
       /**
        * Add a vector to this lookup table.
