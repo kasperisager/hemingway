@@ -8,7 +8,7 @@ namespace lsh {
    * @param dimensionality The dimensionality of vectors to mask.
    * @param width The number of dimensions in vector projections.
    */
-  mask::mask(unsigned int dimensions, unsigned int width) {
+  random_mask::random_mask(unsigned int dimensions, unsigned int width) {
     std::random_device random;
     std::mt19937 generator(random());
     std::uniform_int_distribution<unsigned int> indices (0, dimensions - 1);
@@ -26,7 +26,7 @@ namespace lsh {
    * @param vector The vector to project.
    * @return The projected vector.
    */
-  vector mask::project(const vector& vector) const {
+  vector random_mask::project(const vector& vector) const {
     unsigned int w = this->width_;
 
     std::vector<bool> c;

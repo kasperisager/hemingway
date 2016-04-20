@@ -13,7 +13,7 @@ namespace lsh {
     this->dimensions_ = dimensions;
 
     for (unsigned int i = 0; i < partitions; i++) {
-      this->masks_.push_back(mask(dimensions, width));
+      this->masks_.push_back(random_mask(dimensions, width));
       this->partitions_.push_back(partition());
     }
   }
