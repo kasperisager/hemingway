@@ -42,16 +42,17 @@ namespace lsh {
    * Construct a new covering mask.
    *
    * @param dimensionality The dimensionality of vectors to mask.
+   * @param vector The vector to use for this mask.
    * @param mapping The random vector mapping to use for the mask.
    */
-  covering_mask::covering_mask(unsigned int dimensions, mapping mapping) {
+  covering_mask::covering_mask(unsigned int dimensions, unsigned int vector, mapping mapping) {
     std::vector<bool> c(dimensions);
 
     for (unsigned int j = 0; j < dimensions; j++) {
-      c[j] = (mapping[j] * (j + 1)) % 2;
+      c[j] = (mapping[j] * vector) % 2;
     }
 
-    this->mask_ = new vector(c);
+    this->mask_ = new lsh::vector(c);
   }
 
   /**
