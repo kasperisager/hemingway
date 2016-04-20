@@ -1,4 +1,4 @@
-// Copyright (c) 2016 Kasper Kronborg Isager.
+// Copyright (c) 2016 Kasper Kronborg Isager and Radoslaw Niemczyk.
 #include "mask.hpp"
 
 namespace lsh {

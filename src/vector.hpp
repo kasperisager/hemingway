@@ -1,4 +1,4 @@
-// Copyright (c) 2016 Kasper Kronborg Isager.
+// Copyright (c) 2016 Kasper Kronborg Isager and Radoslaw Niemczyk.
 #pragma once
 
 #include <string>

@@ -2,6 +2,7 @@ The MIT License (MIT)
 =====================
 
 Copyright &copy; 2016 [Kasper Kronborg Isager](https://github.com/kasperisager)
+and [Radoslaw Niemczyk](https://github.com/Nemeczek)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
