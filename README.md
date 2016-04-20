@@ -1,6 +1,6 @@
 # Hemingway
 
-> Implementations of different locality-sensitive hashing schemes for Hamming space
+> Implementations of the classic and covering locality-sensitive hashing schemes for Hamming space
 
 ## Contents
 
