@@ -11,6 +11,12 @@
 
 ## Installation
 
+Hemingway can be built using any compiler that supports C++11. A [tup](http://gittup.org/tup)-based pipeline which uses `g++` is included and is the recommended way to build Hemingway. Start by downloading and installing tup and then run the following from the root of the library:
+
+```console
+$ tup init && tup
+```
+
 ## Usage
 
 ## API
