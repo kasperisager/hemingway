@@ -9,6 +9,11 @@ namespace lsh {
   class vector {
     private:
       /**
+       * The size of component chunks.
+       */
+      const unsigned int chunk_size_ = sizeof(unsigned int) * 8;
+
+      /**
        * The number of components in this vector.
        */
       unsigned int size_;
@@ -71,6 +76,14 @@ namespace lsh {
        * @return The dot product of this and another vector.
        */
       unsigned int operator*(const vector& vector) const;
+
+      /**
+       * Compute the dot product of this vector and an integer.
+       *
+       * @param integer The integer.
+       * @return The dot product of this vector and an integer.
+       */
+      unsigned int operator*(unsigned int integer) const;
 
       /**
        * Compute the bitwise AND of this and another vector.

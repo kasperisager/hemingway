@@ -1,6 +1,8 @@
 // Copyright (c) 2016 Kasper Kronborg Isager and Radoslaw Niemczyk.
 #include "vector.hpp"
 
+#include <iostream>
+
 namespace lsh {
   /**
    * Create a new vector from existing component chunks.
@@ -10,6 +12,7 @@ namespace lsh {
    */
   vector::vector(const std::vector<unsigned int>& components, unsigned int size) {
     this->size_ = size;
+
     unsigned int n = components.size();
 
     for (unsigned int i = 0; i < n; i++) {
@@ -26,7 +29,7 @@ namespace lsh {
     this->size_ = components.size();
 
     unsigned int s = this->size_;
-    unsigned char c = sizeof(s) * 8;
+    unsigned int c = this->chunk_size_;
 
     unsigned int i = 0;
     unsigned char k = 0;
@@ -62,7 +65,7 @@ namespace lsh {
    */
   bool vector::get(unsigned int index) const {
     unsigned int s = this->size_;
-    unsigned char c = sizeof(s) * s;
+    unsigned int c = this->chunk_size_;
 
     if (index >= s) {
       return -1;
@@ -114,6 +117,34 @@ namespace lsh {
 
     for (unsigned int i = 0; i < n; i++) {
       d += __builtin_popcount(this->components_[i] & vector.components_[i]);
+    }
+
+    return d;
+  }
+
+  /**
+   * Compute the dot product of this vector and an integer.
+   *
+   * @param integer The integer.
+   * @return The dot product of this vector and an integer.
+   */
+  unsigned int vector::operator*(unsigned int integer) const {
+    unsigned int d = 0;
+    unsigned int s = this->size_;
+    unsigned int c = this->chunk_size_;
+    unsigned int n = this->components_.size();
+
+    for (unsigned int i = 0; i < n; i++) {
+      // Compute the starting index of the current chunk.
+      unsigned int j = c * i;
+
+      // Compute the number of bits in the current chunk.
+      unsigned int m = j + c > s ? s - j : c;
+
+      // Grab the bits of the integer that correspond to the current chunk.
+      unsigned int b = (integer >> (s - j - m)) % (1 << m);
+
+      d += __builtin_popcount(this->components_[i] & b);
     }
 
     return d;
