@@ -37,13 +37,14 @@ namespace lsh {
     while (i < s) {
       this->components_.push_back(0);
 
-      unsigned int n = i + c > s ? s - i : c;
+      // Compute the number of bits in the current chunk.
+      unsigned int b = i + c > s ? s - i : c;
 
-      for (unsigned int j = 0; j < n; j++) {
-        this->components_[k] |= components[i + j] << (n - j - 1);
+      for (unsigned int j = 0; j < b; j++) {
+        this->components_[k] |= components[i + j] << (b - j - 1);
       }
 
-      i += n;
+      i += b;
       k += 1;
     }
   }
@@ -71,11 +72,16 @@ namespace lsh {
       return -1;
     }
 
+    // Compute the index of the target chunk.
     unsigned int d = index / s;
-    unsigned int j = d * s;
-    unsigned int p = j + c > s ? s - j : c;
 
-    return (this->components_[d] >> (p - (index % s) - 1)) & 1;
+    // Compute the index of the first bit of the target chunk.
+    unsigned int j = d * s;
+
+    // Compute the number of bits in the target chunk.
+    unsigned int b = j + c > s ? s - j : c;
+
+    return (this->components_[d] >> (b - (index % s) - 1)) & 1;
   }
 
   /**
@@ -135,7 +141,7 @@ namespace lsh {
     unsigned int n = this->components_.size();
 
     for (unsigned int i = 0; i < n; i++) {
-      // Compute the starting index of the current chunk.
+      // Compute the index of the first bit of the current chunk.
       unsigned int j = c * i;
 
       // Compute the number of bits in the current chunk.
@@ -158,6 +164,7 @@ namespace lsh {
    */
   vector vector::operator&(const vector& vector) const {
     std::vector<unsigned int> c;
+
     unsigned int n = this->components_.size();
 
     for (unsigned int i = 0; i < n; i++) {
@@ -174,13 +181,13 @@ namespace lsh {
    */
   int vector::hash() const {
     unsigned int n = this->components_.size();
-    unsigned long b = 7;
+    unsigned long h = 7;
 
     for (unsigned int i = 0; i < n; i++) {
-      b = 31 * b + this->components_[i];
+      h = 31 * h + this->components_[i];
     }
 
-    return b ^ (b >> 32);
+    return h ^ (h >> 32);
   }
 
   /**
