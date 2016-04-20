@@ -32,14 +32,14 @@ namespace lsh {
    *
    * @param vector The vector to add to this lookup table.
    */
-  void table::add(vector v) {
+  void table::add(vector vector) {
     unsigned int n = this->partitions_.size();
 
     for (unsigned int i = 0; i < n; i++) {
-      vector k = this->masks_[i].project(v);
+      lsh::vector k = this->masks_[i].project(vector);
       bucket* b = &this->partitions_[i][k];
 
-      b->push_back(v);
+      b->push_back(vector);
     }
 
     this->size_++;
@@ -51,21 +51,21 @@ namespace lsh {
    * @param vector The query vector to look up the nearest neighbour of.
    * @return The nearest neighbouring vector if found, otherwise a vector of size 0.
    */
-  vector table::query(const vector& v) {
+  vector table::query(const vector& vector) {
     unsigned int n = this->partitions_.size();
 
     // Keep track of the best candidate we've encountered.
-    vector* best_c = NULL;
+    lsh::vector* best_c = NULL;
 
     // Keep track of the distance to the best candidate.
     unsigned int best_d = 0;
 
     for (unsigned int i = 0; i < n; i++) {
-      vector k = this->masks_[i].project(v);
+      lsh::vector k = this->masks_[i].project(vector);
       bucket* b = &this->partitions_[i][k];
 
-      for (vector& c: *b) {
-        unsigned int d = vector::distance(v, c);
+      for (lsh::vector& c: *b) {
+        unsigned int d = lsh::vector::distance(vector, c);
 
         if (!best_c || d < best_d) {
           best_c = &c;
@@ -76,7 +76,7 @@ namespace lsh {
 
     // In case we didn't find a vector then return the null vector.
     if (!best_c) {
-      return vector(std::vector<bool> {});
+      return lsh::vector(std::vector<bool> {});
     }
 
     return *best_c;
