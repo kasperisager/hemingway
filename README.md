@@ -26,7 +26,7 @@ $ tup init && tup
 
 [<img src=https://github.com/kasperisager.png width=125>](http://github.com/kasperisager) | [<img src=https://github.com/Nemeczek.png width=125>](http://github.com/Nemeczek)
 --- | ---
-[Kasper Isager](http://github.com/kasperisager) | [Radoslaw Niemczyk](http://github.com/Nemeczek)
+[Kasper Kronborg Isager](http://github.com/kasperisager) | [Radoslaw Niemczyk](http://github.com/Nemeczek)
 
 ## License
 
