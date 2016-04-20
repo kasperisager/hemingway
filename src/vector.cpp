@@ -127,4 +127,24 @@ namespace lsh {
 
     return d;
   }
+
+  /**
+   * Construct a random vector of a given dimensionality.
+   *
+   * @param dimensions The number of dimensions in the vector.
+   * @return The randomly generated vector.
+   */
+  vector vector::random(unsigned int dimensions) {
+    std::random_device random;
+    std::mt19937 generator(random());
+    std::uniform_int_distribution<bool> components(0, 1);
+
+    std::vector<bool> c;
+
+    for (unsigned int i = 0; i < dimensions; i++) {
+      c.push_back(components(generator));
+    }
+
+    return vector(c);
+  }
 }

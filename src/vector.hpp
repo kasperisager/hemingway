@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <random>
 
 namespace lsh {
   class vector {
@@ -72,6 +73,14 @@ namespace lsh {
        * @return The distance between the two vectors.
        */
       static int distance(const vector& u, const vector& v);
+
+      /**
+       * Construct a random vector of a given dimensionality.
+       *
+       * @param dimensions The number of dimensions in the vector.
+       * @return The randomly generated vector.
+       */
+      static vector random(unsigned int dimensions);
   };
 }
 
