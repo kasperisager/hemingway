@@ -64,6 +64,7 @@ namespace lsh {
        */
       mapping mapping_;
 
+    public:
       /**
        * Project a vector, reducing it to a dimensionality specified by this mask.
        *
