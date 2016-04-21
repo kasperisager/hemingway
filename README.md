@@ -56,6 +56,8 @@ lsh::vector r = t.query(lsh::vector({1, 0, 1, 0, 1, 1, 0, 0}));
 
 ## API
 
+_To be written once the API has stabilized a bit._
+
 ## Authors
 
 This library came about as a result of the Advanced Algorithms seminar held at the IT University of Copenhagen. We would like to give thanks to our supervisors for not only their help but also their immense patience during the seminar.
