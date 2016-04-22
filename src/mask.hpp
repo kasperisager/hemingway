@@ -7,14 +7,10 @@
 #include "vector.hpp"
 
 namespace lsh {
-  /**
-   * The mask class acts as sort of a bit mask that can reduce the dimensionality of
-   * vectors by a projection.
-   */
   class mask {
     public:
       /**
-       * Project a vector, reducing it to a dimensionality specified by this mask.
+       * Project a vector.
        *
        * @param vector The vector to project.
        * @return The projected vector.
@@ -44,7 +40,7 @@ namespace lsh {
       classic_mask(unsigned int dimensions, unsigned int width);
 
       /**
-       * Project a vector, reducing it to a dimensionality specified by this mask.
+       * Project a vector.
        *
        * @param vector The vector to project.
        * @return The projected vector.
@@ -76,7 +72,7 @@ namespace lsh {
       covering_mask(unsigned int dimensions, unsigned int vector, mapping mapping);
 
       /**
-       * Project a vector, reducing it to a dimensionality specified by this mask.
+       * Project a vector.
        *
        * @param vector The vector to project.
        * @return The projected vector.
