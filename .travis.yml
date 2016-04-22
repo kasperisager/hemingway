@@ -1,15 +1,19 @@
 sudo: false
 language: cpp
 compiler:
-  - clang++
   - g++
+  - clang++
 cache: apt
 addons:
   apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-precise
     packages:
-      - g++-5
+      - gcc-4.8
+      - g++-4.8
       - clang-3.8
 install:
-  - if [ "$CXX" = "g++" ]; then export CXX="g++-5"; fi
-  - if [ "$CXX" = "clang++" ]; then export CXX="clang-3.8"; fi
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8"; fi
+  - if [ "$CXX" = "clang++" ]; then export CXX="clang++-3.8"; fi
 script: ./build.sh
