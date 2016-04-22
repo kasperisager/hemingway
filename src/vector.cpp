@@ -224,7 +224,7 @@ namespace lsh {
   vector vector::random(unsigned int dimensions) {
     std::random_device random;
     std::mt19937 generator(random());
-    std::uniform_int_distribution<bool> components(0, 1);
+    std::uniform_int_distribution<> components(0, 1);
 
     std::vector<bool> c;
 

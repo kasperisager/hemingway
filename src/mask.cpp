@@ -11,7 +11,7 @@ namespace lsh {
   classic_mask::classic_mask(unsigned int dimensions, unsigned int width) {
     std::random_device random;
     std::mt19937 generator(random());
-    std::uniform_int_distribution<unsigned int> indices (0, dimensions - 1);
+    std::uniform_int_distribution<> indices (0, dimensions - 1);
 
     this->width_ = width;
 
