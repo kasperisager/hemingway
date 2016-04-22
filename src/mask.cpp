@@ -3,12 +3,12 @@
 
 namespace lsh {
   /**
-   * Construct a new mask.
+   * Construct a new classic mask.
    *
    * @param dimensionality The dimensionality of vectors to mask.
    * @param width The number of dimensions in vector projections.
    */
-  random_mask::random_mask(unsigned int dimensions, unsigned int width) {
+  classic_mask::classic_mask(unsigned int dimensions, unsigned int width) {
     std::random_device random;
     std::mt19937 generator(random());
     std::uniform_int_distribution<unsigned int> indices (0, dimensions - 1);
@@ -26,7 +26,7 @@ namespace lsh {
    * @param vector The vector to project.
    * @return The projected vector.
    */
-  vector random_mask::project(const vector& vector) const {
+  vector classic_mask::project(const vector& vector) const {
     unsigned int w = this->width_;
 
     std::vector<bool> c;

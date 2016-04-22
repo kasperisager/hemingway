@@ -37,13 +37,13 @@ The `lsh::table` class is used for representing a lookup table containing partit
 __Classic:__ In this scheme, vectors are hashed into buckets using random bit masks associated with each partition. When constructing this table, 3 parameters are specified: The dimensionality of input vectors, the width of the vector hashes, and the number of partitions to use:
 
 ```cpp
-lsh::table t(8, 3, 4);
+lsh::table t({.dimensions = 8, .width = 3, .partitions = 4);
 ```
 
 __Covering:__ In this scheme, vectors are hashed into buckets using carefully constructed bit masks that ensure that the hashes of vectors within a given radius from each other will collide. Only two parameters are specified when constructed this table: The dimensionality of input vectors, and the radius that should be covered:
 
 ```cpp
-lsh::table t(8, 2);
+lsh::table t({.dimensions = 8, .radius = 2);
 ```
 
 Once you constructed your table, then go ahead and add your vectors:

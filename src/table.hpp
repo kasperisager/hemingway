@@ -41,22 +41,48 @@ namespace lsh {
       std::vector<partition> partitions_;
 
     public:
-      /**
-       * Construct a new lookup table.
-       *
-       * @param dimensions The number of dimensions of vectors in the table.
-       * @param width The width of each vector hash.
-       * @param partitions The number of paritions to use.
-       */
-      table(unsigned int dimensions, unsigned int width, unsigned int partitions);
+      struct classic {
+        /**
+         * The number of dimensions of vectors in the table.
+         */
+        unsigned int dimensions;
+
+        /**
+         * The width of each vector hash.
+         */
+        unsigned int width;
+
+        /**
+         * The number of paritions to use.
+         */
+        unsigned int partitions;
+      };
+
+      struct covering {
+        /**
+         * The number of dimensions of vectors in the table.
+         */
+        unsigned int dimensions;
+
+        /**
+         * The radius to cover in the table.
+         */
+        unsigned int radius;
+      };
 
       /**
-       * Construct a new lookup table.
+       * Construct a new classic lookup table.
        *
-       * @param dimensions The number of dimensions of vectors in the table.
-       * @param radius The radius to cover in the table.
+       * @param config The configuration parameters for the lookup table.
        */
-      table(unsigned int dimensions, unsigned int radius);
+      table(classic config);
+
+      /**
+       * Construct a new covering lookup table.
+       *
+       * @param config The configuration parameters for the lookup table.
+       */
+      table(covering config);
 
       /**
        * Get the number of vectors in this lookup table.

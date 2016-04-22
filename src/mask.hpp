@@ -22,7 +22,7 @@ namespace lsh {
       virtual vector project(const vector& vector) const = 0;
   };
 
-  class random_mask: public mask {
+  class classic_mask: public mask {
     private:
       /**
        * The number of dimensions in vector projections.
@@ -36,12 +36,12 @@ namespace lsh {
 
     public:
       /**
-       * Construct a new random mask.
+       * Construct a new classic mask.
        *
        * @param dimensionality The dimensionality of vectors to mask.
        * @param width The number of dimensions in vector projections.
        */
-      random_mask(unsigned int dimensions, unsigned int width);
+      classic_mask(unsigned int dimensions, unsigned int width);
 
       /**
        * Project a vector, reducing it to a dimensionality specified by this mask.
