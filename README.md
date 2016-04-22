@@ -16,10 +16,10 @@ As for the name? Say the words "locality-sensitive hashing" and "Hamming space" 
 
 ## Installation
 
-Hemingway can be built using any compiler that supports C++11. A [tup](http://gittup.org/tup)-based pipeline which uses `g++` is included and is the recommended way to build Hemingway. Start by downloading and installing tup and then run the following from the root of the library:
+Hemingway can be built using any compiler that supports C++11. A [tup](http://gittup.org/tup)-based pipeline is included and is the recommended way to build Hemingway. Start by downloading and installing tup and then run the following from the root of the library:
 
 ```console
-$ tup init && tup
+$ CXX=<compiler> tup
 ```
 
 This will compile the implementation files to `src/lsh.a`. Grab this along with the header files and you'll be all set! You can check out the next section for a guide on how to actually use the library.

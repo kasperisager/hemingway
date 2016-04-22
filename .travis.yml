@@ -1,0 +1,6 @@
+sudo: false
+language: cpp
+compiler:
+  - clang++
+  - g++
+script: ./build.sh

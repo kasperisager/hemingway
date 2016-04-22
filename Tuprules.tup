@@ -1,6 +1,10 @@
-CFLAGS += -std=c++11
-CFLAGS += -O3
-CFLAGS += -W -Wall -Werror
+export CXX
+export CXXFLAGS
 
-!cc = |> g++ $(CFLAGS) %f -o %o |> %B.o
+CXXFLAGS += -std=c++11
+CXXFLAGS += -O3
+CXXFLAGS += -W -Wall -Werror
+CXXFLAGS += $CXXFLAGS
+
+!cc = |> $CXX $(CXXFLAGS) %f -o %o |> %B.o
 !ar = |> ar crs %o %f |>
