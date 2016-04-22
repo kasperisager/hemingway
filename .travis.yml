@@ -6,8 +6,6 @@ compiler:
 cache: apt
 addons:
   apt:
-    sources:
-      - ubuntu-toolchain-r-test
     packages:
       - g++-5
       - clang-3.8
