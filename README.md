@@ -2,6 +2,8 @@
 
 > Implementations of the classic and covering locality-sensitive hashing schemes for Hamming space
 
+[![Build Status](https://semaphoreci.com/api/v1/kasperisager/hemingway/branches/master/badge.svg)](https://semaphoreci.com/kasperisager/hemingway)
+
 Hemingway is a library for performing nearest-neighbour searches in datasets consisting of high-dimensional bit vectors using locality-sensitive hashing. Two flavors of LSH are currently supported: Classic LSH, originally described by [Piotr Indyk and Rajeev Motwani](http://dl.acm.org/citation.cfm?id=276876), and Covering LSH, a newer construction by [Rasmus Pagh](http://dl.acm.org/citation.cfm?id=2884436).
 
 As for the name? Say the words "locality-sensitive hashing" and "Hamming space" fast enough a bunch of times and you'll eventually arrive at "Hemingway". If not, you probably _didn't pick appropriate parameters_.
