@@ -10,10 +10,9 @@ addons:
       - ubuntu-toolchain-r-test
       - llvm-toolchain-precise
     packages:
-      - gcc-4.8
       - g++-4.8
       - clang-3.8
 install:
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8"; fi
-  - if [ "$CXX" = "clang++" ]; then export CXX="clang++-3.8"; fi
+  - if [ "$CXX" = "clang++" ]; then export CXX="clang-3.8"; fi
 script: ./build.sh

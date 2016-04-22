@@ -1,6 +1,7 @@
 // Copyright (c) 2016 Kasper Kronborg Isager and Radoslaw Niemczyk.
 #pragma once
 
+#include <memory>
 #include <vector>
 #include <random>
 #include "vector.hpp"
