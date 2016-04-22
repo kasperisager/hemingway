@@ -3,11 +3,15 @@ language: cpp
 compiler:
   - clang++
   - g++
+cache: apt
 addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
     packages:
       - g++-5
-      - clang
+      - clang-3.8
+install:
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-5"; fi
+  - if [ "$CXX" = "clang++" ]; then export CXX="clang-3.8"; fi
 script: ./build.sh
