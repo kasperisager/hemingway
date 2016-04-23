@@ -30,9 +30,8 @@ namespace lsh {
 
     unsigned int s = this->size_;
     unsigned int c = this->chunk_size_;
-
     unsigned int i = 0;
-    unsigned char k = 0;
+    unsigned int k = 0;
 
     while (i < s) {
       this->components_.push_back(0);

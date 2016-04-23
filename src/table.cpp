@@ -106,7 +106,7 @@ namespace lsh {
 
     // In case we didn't find a vector then return the null vector.
     if (!best_c) {
-      return lsh::vector(std::vector<bool> {});
+      return lsh::vector({});
     }
 
     return *best_c;
