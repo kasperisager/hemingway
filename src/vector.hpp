@@ -10,11 +10,6 @@ namespace lsh {
   class vector {
     private:
       /**
-       * The size of component chunks.
-       */
-      const unsigned int chunk_size_ = sizeof(unsigned int) * 8;
-
-      /**
        * The number of components in this vector.
        */
       unsigned int size_;
@@ -23,6 +18,11 @@ namespace lsh {
        * The chunked components of this vector.
        */
       std::vector<unsigned int> components_;
+
+      /**
+       * The size of component chunks.
+       */
+      const unsigned int chunk_size_ = sizeof(this->components_[0]) * 8;
 
       /**
        * Create a new vector from existing component chunks.
