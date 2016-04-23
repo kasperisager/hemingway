@@ -1,6 +1,7 @@
 // Copyright (c) 2016 Kasper Kronborg Isager and Radoslaw Niemczyk.
 #pragma once
 
+#include <stdexcept>
 #include <string>
 #include <vector>
 #include <random>

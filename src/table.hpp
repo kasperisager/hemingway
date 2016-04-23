@@ -1,6 +1,7 @@
 // Copyright (c) 2016 Kasper Kronborg Isager and Radoslaw Niemczyk.
 #pragma once
 
+#include <stdexcept>
 #include <memory>
 #include <vector>
 #include <unordered_map>
