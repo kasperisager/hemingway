@@ -23,6 +23,8 @@ namespace lsh {
    * @param config The configuration parameters for the lookup table.
    */
   table::table(covering config) {
+    this->dimensions_ = config.dimensions;
+
     unsigned int n = (1 << (config.radius + 1)) - 1;
 
     covering_mask::mapping m;
@@ -53,6 +55,10 @@ namespace lsh {
    * @param vector The vector to add to this lookup table.
    */
   void table::add(vector vector) {
+    if (this->dimensions_ != vector.size()) {
+      throw std::invalid_argument("Invalid vector size");
+    }
+
     unsigned int n = this->partitions_.size();
 
     for (unsigned int i = 0; i < n; i++) {
@@ -72,6 +78,10 @@ namespace lsh {
    * @return The nearest neighbouring vector if found, otherwise a vector of size 0.
    */
   vector table::query(const vector& vector) {
+    if (this->dimensions_ != vector.size()) {
+      throw std::invalid_argument("Invalid vector size");
+    }
+
     unsigned int n = this->partitions_.size();
 
     // Keep track of the best candidate we've encountered.

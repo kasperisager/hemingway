@@ -9,6 +9,8 @@ namespace lsh {
    * @param width The number of dimensions in vector projections.
    */
   classic_mask::classic_mask(unsigned int dimensions, unsigned int width) {
+    this->dimensions_ = dimensions;
+
     std::random_device random;
     std::mt19937 generator(random());
     std::uniform_int_distribution<> indices (0, dimensions - 1);
@@ -27,6 +29,10 @@ namespace lsh {
    * @return The projected vector.
    */
   vector classic_mask::project(const vector& vector) const {
+    if (this->dimensions_ != vector.size()) {
+      throw std::invalid_argument("Invalid vector size");
+    }
+
     unsigned int w = this->width_;
 
     std::vector<bool> c;
@@ -46,6 +52,8 @@ namespace lsh {
    * @param mapping The random vector mapping to use for the mask.
    */
   covering_mask::covering_mask(unsigned int dimensions, unsigned int vector, mapping mapping) {
+    this->dimensions_ = dimensions;
+
     std::vector<bool> c(dimensions);
 
     for (unsigned int j = 0; j < dimensions; j++) {
@@ -64,6 +72,10 @@ namespace lsh {
    * @return The projected vector.
    */
   vector covering_mask::project(const vector& vector) const {
+    if (this->dimensions_ != vector.size()) {
+      throw std::invalid_argument("Invalid vector size");
+    }
+
     return *this->mask_ & vector;
   }
 }

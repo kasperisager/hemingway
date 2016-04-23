@@ -21,6 +21,11 @@ namespace lsh {
   class classic_mask: public mask {
     private:
       /**
+       * The dimensionality of vectors to mask.
+       */
+      unsigned int dimensions_;
+
+      /**
        * The number of dimensions in vector projections.
        */
       unsigned int width_;
@@ -56,6 +61,11 @@ namespace lsh {
       typedef std::vector<vector> mapping;
 
     private:
+      /**
+       * The dimensionality of vectors to mask.
+       */
+      unsigned int dimensions_;
+
       /**
        * The vector mask to use.
        */

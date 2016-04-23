@@ -69,7 +69,7 @@ namespace lsh {
     unsigned int c = this->chunk_size_;
 
     if (index >= s) {
-      return -1;
+      throw std::out_of_range("Invalid index");
     }
 
     // Compute the index of the target chunk.
@@ -108,6 +108,10 @@ namespace lsh {
    * @return `true` if this vector equals the other vector, otherwise `false`.
    */
   bool vector::operator==(const vector& vector) const {
+    if (this->size() != vector.size()) {
+      throw std::invalid_argument("Invalid vector size");
+    }
+
     return vector::distance(*this, vector) == 0;
   }
 
@@ -118,6 +122,10 @@ namespace lsh {
    * @return The dot product of this and another vector.
    */
   unsigned int vector::operator*(const vector& vector) const {
+    if (this->size() != vector.size()) {
+      throw std::invalid_argument("Invalid vector size");
+    }
+
     unsigned int d = 0;
     unsigned int n = this->components_.size();
 
@@ -163,6 +171,10 @@ namespace lsh {
    * @return The bitwise AND of this and another vector.
    */
   vector vector::operator&(const vector& vector) const {
+    if (this->size() != vector.size()) {
+      throw std::invalid_argument("Invalid vector size");
+    }
+
     std::vector<unsigned int> c;
 
     unsigned int n = this->components_.size();
@@ -200,6 +212,10 @@ namespace lsh {
    * @return The distance between the two vectors.
    */
   int vector::distance(const vector& u, const vector& v) {
+    if (u.size() != v.size()) {
+      throw std::invalid_argument("Invalid vector size");
+    }
+
     unsigned int d = 0;
     unsigned int n = u.components_.size();
 
