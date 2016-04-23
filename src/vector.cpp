@@ -1,8 +1,6 @@
 // Copyright (c) 2016 Kasper Kronborg Isager and Radoslaw Niemczyk.
 #include "vector.hpp"
 
-#include <iostream>
-
 namespace lsh {
   /**
    * Create a new vector from existing component chunks.
