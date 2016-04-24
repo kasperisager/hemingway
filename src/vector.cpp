@@ -202,8 +202,6 @@ namespace lsh {
   /**
    * Compute the distance between two vectors.
    *
-   * @see http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetKernighan
-   *
    * @param u The first vector.
    * @param v The second vector.
    * @return The distance between the two vectors.
@@ -217,12 +215,7 @@ namespace lsh {
     unsigned int n = u.components_.size();
 
     for (unsigned int i = 0; i < n; i++) {
-      unsigned int x = u.components_[i] ^ v.components_[i];
-
-      while (x) {
-        x &= x - 1;
-        d++;
-      }
+      d += __builtin_popcount(u.components_[i] ^ v.components_[i]);
     }
 
     return d;
