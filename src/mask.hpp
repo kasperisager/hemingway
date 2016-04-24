@@ -80,7 +80,7 @@ namespace lsh {
        * @param vector The vector to use for this mask.
        * @param mapping The random vector mapping to use for the mask.
        */
-      covering_mask(unsigned int dimensions, unsigned int vector, mapping mapping);
+      covering_mask(unsigned int dimensions, unsigned int vector, const mapping& mapping);
 
       /**
        * Project a vector.
