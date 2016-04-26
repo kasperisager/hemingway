@@ -5,6 +5,7 @@
 #include <memory>
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 #include "vector.hpp"
 #include "mask.hpp"
 
@@ -14,7 +15,7 @@ namespace lsh {
       /**
        * A bucket containing vectors who are candidate pairs.
        */
-      typedef std::vector<vector> bucket;
+      typedef std::unordered_set<vector> bucket;
 
       /**
        * A partition consisting of buckets of vectors.
@@ -93,11 +94,18 @@ namespace lsh {
       unsigned int size() const;
 
       /**
-       * Add a vector to this lookup table.
+       * Insert a vector into this lookup table.
        *
-       * @param vector The vector to add to this lookup table.
+       * @param vector The vector to insert into this lookup table.
        */
-      void add(vector vector);
+      void insert(vector vector);
+
+      /**
+       * Erase a vector from this lookup table.
+       *
+       * @param vector The vector to erase from this lookup table.
+       */
+      void erase(const vector& vector);
 
       /**
        * Query this lookup table for the nearest neighbour of a query vector.
