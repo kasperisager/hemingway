@@ -8,13 +8,13 @@ namespace lsh {
    * @param components The existing component chunks.
    * @param size The number of components.
    */
-  vector::vector(const std::vector<unsigned int>& components, unsigned int size) {
-    this->size_ = size;
+  vector::vector(const std::vector<unsigned int>& cs, unsigned int s) {
+    this->size_ = s;
 
-    unsigned int n = components.size();
+    unsigned int n = cs.size();
 
     for (unsigned int i = 0; i < n; i++) {
-      this->components_.push_back(components[i]);
+      this->components_.push_back(cs[i]);
     }
   }
 
@@ -23,8 +23,8 @@ namespace lsh {
    *
    * @param components The components of the vector.
    */
-  vector::vector(const std::vector<bool>& components) {
-    this->size_ = components.size();
+  vector::vector(const std::vector<bool>& cs) {
+    this->size_ = cs.size();
 
     unsigned int s = this->size_;
     unsigned int c = this->chunk_size_;
@@ -38,7 +38,7 @@ namespace lsh {
       unsigned int b = i + c > s ? s - i : c;
 
       for (unsigned int j = 0; j < b; j++) {
-        this->components_[k] |= components[i + j] << (b - j - 1);
+        this->components_[k] |= cs[i + j] << (b - j - 1);
       }
 
       i += b;
@@ -61,16 +61,16 @@ namespace lsh {
    * @param index The index of the component to get.
    * @return The component at the index.
    */
-  bool vector::get(unsigned int index) const {
+  bool vector::get(unsigned int i) const {
     unsigned int s = this->size_;
     unsigned int c = this->chunk_size_;
 
-    if (index >= s) {
+    if (i >= s) {
       throw std::out_of_range("Invalid index");
     }
 
     // Compute the index of the target chunk.
-    unsigned int d = index / s;
+    unsigned int d = i / s;
 
     // Compute the index of the first bit of the target chunk.
     unsigned int j = d * s;
@@ -78,7 +78,7 @@ namespace lsh {
     // Compute the number of bits in the target chunk.
     unsigned int b = j + c > s ? s - j : c;
 
-    return (this->components_[d] >> (b - (index % s) - 1)) & 1;
+    return (this->components_[d] >> (b - (i % s) - 1)) & 1;
   }
 
   /**
@@ -104,12 +104,12 @@ namespace lsh {
    * @param vector The other vector.
    * @return `true` if this vector equals the other vector, otherwise `false`.
    */
-  bool vector::operator==(const vector& vector) const {
-    if (this->size() != vector.size()) {
+  bool vector::operator==(const vector& v) const {
+    if (this->size() != v.size()) {
       throw std::invalid_argument("Invalid vector size");
     }
 
-    return vector::distance(*this, vector) == 0;
+    return vector::distance(*this, v) == 0;
   }
 
   /**
@@ -118,8 +118,8 @@ namespace lsh {
    * @param vector The other vector.
    * @return The dot product of this and another vector.
    */
-  unsigned int vector::operator*(const vector& vector) const {
-    if (this->size() != vector.size()) {
+  unsigned int vector::operator*(const vector& v) const {
+    if (this->size() != v.size()) {
       throw std::invalid_argument("Invalid vector size");
     }
 
@@ -127,7 +127,7 @@ namespace lsh {
     unsigned int n = this->components_.size();
 
     for (unsigned int i = 0; i < n; i++) {
-      d += __builtin_popcount(this->components_[i] & vector.components_[i]);
+      d += __builtin_popcount(this->components_[i] & v.components_[i]);
     }
 
     return d;
@@ -139,7 +139,7 @@ namespace lsh {
    * @param integer The integer.
    * @return The dot product of this vector and an integer.
    */
-  unsigned int vector::operator*(unsigned int integer) const {
+  unsigned int vector::operator*(unsigned int it) const {
     unsigned int d = 0;
     unsigned int s = this->size_;
     unsigned int c = this->chunk_size_;
@@ -153,7 +153,7 @@ namespace lsh {
       unsigned int m = j + c > s ? s - j : c;
 
       // Grab the bits of the integer that correspond to the current chunk.
-      unsigned int b = (integer >> (s - j - m)) % (1 << m);
+      unsigned int b = (it >> (s - j - m)) % (1 << m);
 
       d += __builtin_popcount(this->components_[i] & b);
     }
@@ -167,8 +167,8 @@ namespace lsh {
    * @param vector The other vector.
    * @return The bitwise AND of this and another vector.
    */
-  vector vector::operator&(const vector& vector) const {
-    if (this->size() != vector.size()) {
+  vector vector::operator&(const vector& v) const {
+    if (this->size() != v.size()) {
       throw std::invalid_argument("Invalid vector size");
     }
 
@@ -177,10 +177,10 @@ namespace lsh {
     unsigned int n = this->components_.size();
 
     for (unsigned int i = 0; i < n; i++) {
-      c.push_back(this->components_[i] & vector.components_[i]);
+      c.push_back(this->components_[i] & v.components_[i]);
     }
 
-    return lsh::vector(c, this->size_);
+    return vector(c, this->size_);
   }
 
   /**
@@ -227,14 +227,14 @@ namespace lsh {
    * @param dimensions The number of dimensions in the vector.
    * @return The randomly generated vector.
    */
-  vector vector::random(unsigned int dimensions) {
+  vector vector::random(unsigned int d) {
     std::random_device random;
     std::mt19937 generator(random());
     std::uniform_int_distribution<> components(0, 1);
 
     std::vector<bool> c;
 
-    for (unsigned int i = 0; i < dimensions; i++) {
+    for (unsigned int i = 0; i < d; i++) {
       c.push_back(components(generator));
     }
 

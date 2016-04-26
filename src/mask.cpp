@@ -8,16 +8,16 @@ namespace lsh {
    * @param dimensionality The dimensionality of vectors to mask.
    * @param width The number of dimensions in vector projections.
    */
-  classic_mask::classic_mask(unsigned int dimensions, unsigned int width) {
-    this->dimensions_ = dimensions;
+  classic_mask::classic_mask(unsigned int d, unsigned int w) {
+    this->dimensions_ = d;
 
     std::random_device random;
     std::mt19937 generator(random());
-    std::uniform_int_distribution<> indices (0, dimensions - 1);
+    std::uniform_int_distribution<> indices (0, d- 1);
 
-    this->width_ = width;
+    this->width_ = w;
 
-    for (unsigned int i = 0; i < width; i++) {
+    for (unsigned int i = 0; i < w; i++) {
       this->indices_.push_back(indices(generator));
     }
   }
@@ -28,8 +28,8 @@ namespace lsh {
    * @param vector The vector to project.
    * @return The projected vector.
    */
-  vector classic_mask::project(const vector& vector) const {
-    if (this->dimensions_ != vector.size()) {
+  vector classic_mask::project(const vector& v) const {
+    if (this->dimensions_ != v.size()) {
       throw std::invalid_argument("Invalid vector size");
     }
 
@@ -38,10 +38,10 @@ namespace lsh {
     std::vector<bool> c;
 
     for (unsigned int i = 0; i < w; i++) {
-      c.push_back(vector.get(this->indices_[i]));
+      c.push_back(v.get(this->indices_[i]));
     }
 
-    return lsh::vector(c);
+    return vector(c);
   }
 
   /**
@@ -51,18 +51,16 @@ namespace lsh {
    * @param vector The vector to use for this mask.
    * @param mapping The random vector mapping to use for the mask.
    */
-  covering_mask::covering_mask(unsigned int dimensions, unsigned int vector, const mapping& mapping) {
-    this->dimensions_ = dimensions;
+  covering_mask::covering_mask(unsigned int d, unsigned int v, const mapping& m) {
+    this->dimensions_ = d;
 
-    std::vector<bool> c(dimensions);
+    std::vector<bool> c(d);
 
-    for (unsigned int j = 0; j < dimensions; j++) {
-      c[j] = (mapping[j] * vector) % 2;
+    for (unsigned int j = 0; j < d; j++) {
+      c[j] = (m[j] * v) % 2;
     }
 
-    std::unique_ptr<lsh::vector> mask(new lsh::vector(c));
-
-    this->mask_ = std::move(mask);
+    this->mask_ = std::move(std::unique_ptr<vector>(new vector(c)));
   }
 
   /**
@@ -71,11 +69,11 @@ namespace lsh {
    * @param vector The vector to project.
    * @return The projected vector.
    */
-  vector covering_mask::project(const vector& vector) const {
-    if (this->dimensions_ != vector.size()) {
+  vector covering_mask::project(const vector& v) const {
+    if (this->dimensions_ != v.size()) {
       throw std::invalid_argument("Invalid vector size");
     }
 
-    return *this->mask_ & vector;
+    return *this->mask_ & v;
   }
 }
