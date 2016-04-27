@@ -32,10 +32,11 @@ namespace lsh {
     unsigned int c = this->chunk_size_;
     unsigned int i = 0;
     unsigned int k = 0;
+    unsigned int n = (s + c - 1) / c;
+
+    this->components_.resize(n, 0);
 
     while (i < s) {
-      this->components_.push_back(0);
-
       // Compute the number of bits in the current chunk.
       unsigned int b = i + c > s ? s - i : c;
 
