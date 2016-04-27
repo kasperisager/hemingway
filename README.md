@@ -51,7 +51,7 @@ lsh::table t({.dimensions = 8, .radius = 2);
 Once you've constructed your table, go ahead and add your vectors:
 
 ```cpp
-t.add(v);
+t.insert(v);
 ```
 
 Once you've added all your vectors you can perform queries against the lookup table:
