@@ -34,7 +34,7 @@ namespace lsh {
     }
 
     for (unsigned int i = 0; i < n; i++) {
-      std::unique_ptr<mask> mask(new covering_mask(c.dimensions, i, m));
+      std::unique_ptr<mask> mask(new covering_mask(c.dimensions, i + 1, m));
       this->masks_.push_back(std::move(mask));
       this->partitions_.push_back(partition());
     }
