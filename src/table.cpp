@@ -8,12 +8,20 @@ namespace lsh {
    * @param config The configuration parameters for the lookup table.
    */
   table::table(classic c) {
-    this->dimensions_ = c.dimensions;
+    unsigned int d = c.dimensions;
+    unsigned int w = c.width;
+    unsigned int p = c.partitions;
 
-    for (unsigned int i = 0; i < c.partitions; i++) {
-      std::unique_ptr<mask> mask(new classic_mask(c.dimensions, c.width));
-      this->masks_.push_back(std::move(mask));
-      this->partitions_.push_back(partition());
+    this->dimensions_ = d;
+
+    this->masks_.reserve(p);
+    this->partitions_.reserve(p);
+
+    for (unsigned int i = 0; i < p; i++) {
+      std::unique_ptr<mask> mask(new classic_mask(d, w));
+
+      this->masks_[i] = std::move(mask);
+      this->partitions_[i] = partition();
     }
   }
 
@@ -23,20 +31,27 @@ namespace lsh {
    * @param config The configuration parameters for the lookup table.
    */
   table::table(covering c) {
-    this->dimensions_ = c.dimensions;
+    unsigned int d = c.dimensions;
+    unsigned int r = c.radius;
 
-    unsigned int n = (1 << (c.radius + 1)) - 1;
+    this->dimensions_ = d;
+
+    unsigned int n = (1 << (r + 1)) - 1;
 
     covering_mask::mapping m;
 
-    for (unsigned int i = 0; i < c.dimensions; i++) {
+    for (unsigned int i = 0; i < d; i++) {
       m.push_back(vector::random(n + 1));
     }
 
+    this->masks_.reserve(n);
+    this->partitions_.reserve(n);
+
     for (unsigned int i = 0; i < n; i++) {
-      std::unique_ptr<mask> mask(new covering_mask(c.dimensions, i + 1, m));
-      this->masks_.push_back(std::move(mask));
-      this->partitions_.push_back(partition());
+      std::unique_ptr<mask> mask(new covering_mask(d, i + 1, m));
+
+      this->masks_[i] = std::move(mask);
+      this->partitions_[i] = partition();
     }
   }
 
