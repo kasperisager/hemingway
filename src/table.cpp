@@ -20,8 +20,8 @@ namespace lsh {
     for (unsigned int i = 0; i < p; i++) {
       std::unique_ptr<mask> mask(new classic_mask(d, w));
 
-      this->masks_[i] = std::move(mask);
-      this->partitions_[i] = partition();
+      this->masks_.push_back(std::move(mask));
+      this->partitions_.push_back(partition());
     }
   }
 
@@ -50,8 +50,8 @@ namespace lsh {
     for (unsigned int i = 0; i < n; i++) {
       std::unique_ptr<mask> mask(new covering_mask(d, i + 1, m));
 
-      this->masks_[i] = std::move(mask);
-      this->partitions_[i] = partition();
+      this->masks_.push_back(std::move(mask));
+      this->partitions_.push_back(partition());
     }
   }
 
