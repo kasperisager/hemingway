@@ -40,6 +40,8 @@ namespace lsh {
 
     covering_mask::mapping m;
 
+    m.reserve(d);
+
     for (unsigned int i = 0; i < d; i++) {
       m.push_back(vector::random(n + 1));
     }
