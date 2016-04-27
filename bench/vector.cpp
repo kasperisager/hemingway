@@ -10,7 +10,7 @@ std::vector<bool> c(128);
 vector u = vector::random(128);
 vector v = vector::random(128);
 
-BENCHMARK(vector, vector, 10000, 200) {
+BENCHMARK(vector, vector, 10000, 300) {
   lsh::vector v(c);
 }
 
