@@ -13,8 +13,10 @@ namespace lsh {
 
     unsigned int n = cs.size();
 
+    this->components_.reserve(n);
+
     for (unsigned int i = 0; i < n; i++) {
-      this->components_.push_back(cs[i]);
+      this->components_[i] = cs[i];
     }
   }
 
@@ -172,12 +174,12 @@ namespace lsh {
       throw std::invalid_argument("Invalid vector size");
     }
 
-    std::vector<unsigned int> c;
-
     unsigned int n = this->components_.size();
 
+    std::vector<unsigned int> c(n);
+
     for (unsigned int i = 0; i < n; i++) {
-      c.push_back(this->components_[i] & v.components_[i]);
+      c[i] = this->components_[i] & v.components_[i];
     }
 
     return vector(c, this->size_);
@@ -232,10 +234,10 @@ namespace lsh {
     std::mt19937 generator(random());
     std::uniform_int_distribution<> components(0, 1);
 
-    std::vector<bool> c;
+    std::vector<bool> c(d);
 
     for (unsigned int i = 0; i < d; i++) {
-      c.push_back(components(generator));
+      c[i] = components(generator);
     }
 
     return vector(c);
