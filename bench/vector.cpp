@@ -10,4 +10,3 @@ std::vector<bool> c(128);
 BENCHMARK(vector, vector, 10000, 1000) {
   lsh::vector v(c);
 }
-
