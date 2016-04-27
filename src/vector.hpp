@@ -10,6 +10,11 @@ namespace lsh {
   class vector {
     private:
       /**
+       * The size of component chunks.
+       */
+      static const unsigned int chunk_size_ = sizeof(unsigned int) * 8;
+
+      /**
        * The number of components in this vector.
        */
       unsigned int size_;
@@ -18,11 +23,6 @@ namespace lsh {
        * The chunked components of this vector.
        */
       std::vector<unsigned int> components_;
-
-      /**
-       * The size of component chunks.
-       */
-      const unsigned int chunk_size_ = sizeof(this->components_[0]) * 8;
 
       /**
        * Create a new vector from existing component chunks.
@@ -99,7 +99,7 @@ namespace lsh {
        *
        * @return The hash of this vector.
        */
-      int hash() const;
+      unsigned long hash() const;
 
       /**
        * Compute the distance between two vectors.
@@ -110,7 +110,7 @@ namespace lsh {
        * @param v The second vector.
        * @return The distance between the two vectors.
        */
-      static int distance(const vector& u, const vector& v);
+      static unsigned int distance(const vector& u, const vector& v);
 
       /**
        * Construct a random vector of a given dimensionality.

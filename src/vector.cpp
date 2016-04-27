@@ -13,7 +13,7 @@ namespace lsh {
 
     unsigned int n = cs.size();
 
-    this->components_.reserve(n);
+    this->components_.resize(n, 0);
 
     for (unsigned int i = 0; i < n; i++) {
       this->components_[i] = cs[i];
@@ -191,15 +191,16 @@ namespace lsh {
    *
    * @return The hash of this vector.
    */
-  int vector::hash() const {
+  unsigned long vector::hash() const {
     unsigned int n = this->components_.size();
+
     unsigned long h = 7;
 
     for (unsigned int i = 0; i < n; i++) {
       h = 31 * h + this->components_[i];
     }
 
-    return h ^ (h >> 32);
+    return h;
   }
 
   /**
@@ -209,7 +210,7 @@ namespace lsh {
    * @param v The second vector.
    * @return The distance between the two vectors.
    */
-  int vector::distance(const vector& u, const vector& v) {
+  unsigned int vector::distance(const vector& u, const vector& v) {
     if (u.size() != v.size()) {
       throw std::invalid_argument("Invalid vector size");
     }

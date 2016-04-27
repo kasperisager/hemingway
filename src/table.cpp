@@ -14,14 +14,14 @@ namespace lsh {
 
     this->dimensions_ = d;
 
-    this->masks_.reserve(p);
-    this->partitions_.reserve(p);
+    this->masks_.resize(p);
+    this->partitions_.resize(p);
 
     for (unsigned int i = 0; i < p; i++) {
       std::unique_ptr<mask> mask(new classic_mask(d, w));
 
-      this->masks_.push_back(std::move(mask));
-      this->partitions_.push_back(partition());
+      this->masks_[i] = std::move(mask);
+      this->partitions_[i] = partition();
     }
   }
 
@@ -40,20 +40,18 @@ namespace lsh {
 
     covering_mask::mapping m;
 
-    m.reserve(d);
-
     for (unsigned int i = 0; i < d; i++) {
       m.push_back(vector::random(n + 1));
     }
 
-    this->masks_.reserve(n);
-    this->partitions_.reserve(n);
+    this->masks_.resize(n);
+    this->partitions_.resize(n);
 
     for (unsigned int i = 0; i < n; i++) {
       std::unique_ptr<mask> mask(new covering_mask(d, i + 1, m));
 
-      this->masks_.push_back(std::move(mask));
-      this->partitions_.push_back(partition());
+      this->masks_[i] = std::move(mask);
+      this->partitions_[i] = partition();
     }
   }
 
@@ -71,7 +69,7 @@ namespace lsh {
    *
    * @param vector The vector to insert into this lookup table.
    */
-  void table::insert(vector v) {
+  void table::insert(const vector& v) {
     if (this->dimensions_ != v.size()) {
       throw std::invalid_argument("Invalid vector size");
     }

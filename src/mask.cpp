@@ -25,7 +25,7 @@ namespace lsh {
   classic_mask::classic_mask(unsigned int d, unsigned int w) {
     std::random_device random;
     std::mt19937 generator(random());
-    std::uniform_int_distribution<> indices (0, d - 1);
+    std::uniform_int_distribution<> indices(0, d - 1);
 
     this->dimensions_ = d;
 

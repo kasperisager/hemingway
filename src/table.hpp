@@ -98,7 +98,7 @@ namespace lsh {
        *
        * @param vector The vector to insert into this lookup table.
        */
-      void insert(vector vector);
+      void insert(const vector& vector);
 
       /**
        * Erase a vector from this lookup table.

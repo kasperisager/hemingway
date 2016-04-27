@@ -1,3 +1,4 @@
+// Copyright (c) 2016 Kasper Kronborg Isager and Radosław Niemczyk.
 #include <vector>
 #include "../lib/hayai/hayai.hpp"
 #include "../lib/hayai/hayai_posix_main.cpp"
