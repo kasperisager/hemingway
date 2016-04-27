@@ -27,14 +27,9 @@ namespace lsh {
       unsigned int dimensions_;
 
       /**
-       * The number of dimensions in vector projections.
+       * The vector mask to use.
        */
-      unsigned int width_;
-
-      /**
-       * The randomly chosen indices to pick for vector projections.
-       */
-      std::vector<unsigned int> indices_;
+      std::unique_ptr<vector> mask_;
 
     public:
       /**

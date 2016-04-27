@@ -13,13 +13,19 @@ namespace lsh {
 
     std::random_device random;
     std::mt19937 generator(random());
-    std::uniform_int_distribution<> indices (0, d- 1);
+    std::uniform_int_distribution<> indices (0, d - 1);
 
-    this->width_ = w;
+    this->dimensions_ = d;
+
+    std::vector<bool> c(d);
 
     for (unsigned int i = 0; i < w; i++) {
-      this->indices_.push_back(indices(generator));
+      c[indices(generator)] = 1;
     }
+
+    std::unique_ptr<vector> p(new vector(c));
+
+    this->mask_ = std::move(p);
   }
 
   /**
@@ -33,15 +39,7 @@ namespace lsh {
       throw std::invalid_argument("Invalid vector size");
     }
 
-    unsigned int w = this->width_;
-
-    std::vector<bool> c;
-
-    for (unsigned int i = 0; i < w; i++) {
-      c.push_back(v.get(this->indices_[i]));
-    }
-
-    return vector(c);
+    return *this->mask_ & v;
   }
 
   /**
