@@ -60,7 +60,9 @@ namespace lsh {
       c[j] = (m[j] * v) % 2;
     }
 
-    this->mask_ = std::move(std::unique_ptr<vector>(new vector(c)));
+    std::unique_ptr<vector> p(new vector(c));
+
+    this->mask_ = std::move(p);
   }
 
   /**
