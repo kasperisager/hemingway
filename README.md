@@ -70,9 +70,9 @@ This library came about as a result of the Advanced Algorithms seminar held at t
 
 [<img src=https://github.com/kasperisager.png width=125>](http://github.com/kasperisager) | [<img src=https://github.com/Nemeczek.png width=125>](http://github.com/Nemeczek)
 --- | ---
-[Kasper Kronborg Isager](http://github.com/kasperisager) | [Radoslaw Niemczyk](http://github.com/Nemeczek)
+[Kasper Kronborg Isager](http://github.com/kasperisager) | [Radosław Niemczyk](http://github.com/Nemeczek)
 
 ## License
 
 Copyright &copy; 2016 [Kasper Kronborg Isager](https://github.com/kasperisager)
-and [Radoslaw Niemczyk](https://github.com/Nemeczek). Licensed under the terms of the [MIT license](LICENSE.md).
+and [Radosław Niemczyk](https://github.com/Nemeczek). Licensed under the terms of the [MIT license](LICENSE.md).

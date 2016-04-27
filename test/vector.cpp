@@ -1,4 +1,4 @@
-// Copyright (c) 2016 Kasper Kronborg Isager and Radoslaw Niemczyk.
+// Copyright (c) 2016 Kasper Kronborg Isager and Radosław Niemczyk.
 #include "../lib/test.hpp"
 #include "../src/vector.hpp"
 
