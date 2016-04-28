@@ -132,7 +132,7 @@ namespace lsh {
     std::shared_ptr<vector> best_c;
 
     // Keep track of the distance to the best candidate.
-    unsigned int best_d = UINT_MAX;
+    unsigned int best_d = USHRT_MAX;
 
     for (unsigned int i = 0; i < n; i++) {
       vector k = this->masks_[i]->project(v);

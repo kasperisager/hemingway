@@ -12,17 +12,17 @@ namespace lsh {
       /**
        * The size of component chunks.
        */
-      static const unsigned int chunk_size_ = sizeof(unsigned int) * 8;
+      static const unsigned char chunk_size_ = sizeof(unsigned short) * 8;
 
       /**
        * The number of components in this vector.
        */
-      unsigned int size_;
+      unsigned short size_;
 
       /**
        * The chunked components of this vector.
        */
-      std::vector<unsigned int> components_;
+      std::vector<unsigned short> components_;
 
       /**
        * Create a new vector from existing component chunks.
@@ -30,7 +30,7 @@ namespace lsh {
        * @param components The existing component chunks.
        * @param size The number of components.
        */
-      vector(const std::vector<unsigned int>& components, unsigned int size);
+      vector(const std::vector<unsigned short>& components, unsigned short size);
 
     public:
       /**
@@ -45,7 +45,7 @@ namespace lsh {
        *
        * @return The number of components in this vector.
        */
-      unsigned int size() const;
+      unsigned short size() const;
 
       /**
        * Get the component at the specified index of this vector.
@@ -53,7 +53,7 @@ namespace lsh {
        * @param index The index of the component to get.
        * @return The component at the index.
        */
-      bool get(unsigned int index) const;
+      bool get(unsigned short index) const;
 
       /**
        * Get a string representation of this vector.
@@ -110,7 +110,7 @@ namespace lsh {
        * @param v The second vector.
        * @return The distance between the two vectors.
        */
-      static unsigned int distance(const vector& u, const vector& v);
+      static unsigned short distance(const vector& u, const vector& v);
 
       /**
        * Construct a random vector of a given dimensionality.
@@ -118,7 +118,7 @@ namespace lsh {
        * @param dimensions The number of dimensions in the vector.
        * @return The randomly generated vector.
        */
-      static vector random(unsigned int dimensions);
+      static vector random(unsigned short dimensions);
   };
 }
 

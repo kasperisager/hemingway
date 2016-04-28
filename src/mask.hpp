@@ -13,7 +13,7 @@ namespace lsh {
       /**
        * The dimensionality of vectors to mask.
        */
-      unsigned int dimensions_;
+      unsigned short dimensions_;
 
       /**
        * The vector mask to use.
@@ -38,7 +38,7 @@ namespace lsh {
        * @param dimensionality The dimensionality of vectors to mask.
        * @param width The number of dimensions in vector projections.
        */
-      classic_mask(unsigned int dimensions, unsigned int width);
+      classic_mask(unsigned short dimensions, unsigned short width);
   };
 
   class covering_mask: public mask {
@@ -55,6 +55,6 @@ namespace lsh {
        * @param vector The vector to use for this mask.
        * @param mapping The random vector mapping to use for the mask.
        */
-      covering_mask(unsigned int dimensions, unsigned int vector, const mapping& mapping);
+      covering_mask(unsigned short dimensions, unsigned short vector, const mapping& mapping);
   };
 }

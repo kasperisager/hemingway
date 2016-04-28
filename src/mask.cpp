@@ -22,7 +22,7 @@ namespace lsh {
    * @param dimensionality The dimensionality of vectors to mask.
    * @param width The number of dimensions in vector projections.
    */
-  classic_mask::classic_mask(unsigned int d, unsigned int w) {
+  classic_mask::classic_mask(unsigned short d, unsigned short w) {
     std::random_device random;
     std::mt19937 generator(random());
     std::uniform_int_distribution<> indices(0, d - 1);
@@ -47,7 +47,7 @@ namespace lsh {
    * @param vector The vector to use for this mask.
    * @param mapping The random vector mapping to use for the mask.
    */
-  covering_mask::covering_mask(unsigned int d, unsigned int v, const mapping& m) {
+  covering_mask::covering_mask(unsigned short d, unsigned short v, const mapping& m) {
     this->dimensions_ = d;
 
     std::vector<bool> c(d);

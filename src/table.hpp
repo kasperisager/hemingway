@@ -26,7 +26,7 @@ namespace lsh {
       /**
        * The number of dimensions of vectors in the table.
        */
-      unsigned int dimensions_;
+      unsigned short dimensions_;
 
       /**
        * The number of vectors in this lookup table.
@@ -48,29 +48,29 @@ namespace lsh {
         /**
          * The number of dimensions of vectors in the table.
          */
-        unsigned int dimensions;
+        unsigned short dimensions;
 
         /**
          * The width of each vector hash.
          */
-        unsigned int width;
+        unsigned short width;
 
         /**
          * The number of paritions to use.
          */
-        unsigned int partitions;
+        unsigned short partitions;
       };
 
       struct covering {
         /**
          * The number of dimensions of vectors in the table.
          */
-        unsigned int dimensions;
+        unsigned short dimensions;
 
         /**
          * The radius to cover in the table.
          */
-        unsigned int radius;
+        unsigned short radius;
       };
 
       /**
