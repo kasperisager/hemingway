@@ -3,10 +3,10 @@
 
 #include <stdexcept>
 #include <climits>
+#include <algorithm>
 #include <memory>
 #include <vector>
 #include <unordered_map>
-#include <unordered_set>
 #include "vector.hpp"
 #include "mask.hpp"
 
@@ -16,7 +16,7 @@ namespace lsh {
       /**
        * A bucket containing vectors who are candidate pairs.
        */
-      typedef std::unordered_set<std::shared_ptr<vector>> bucket;
+      typedef std::vector<std::shared_ptr<vector>> bucket;
 
       /**
        * A partition consisting of buckets of vectors.

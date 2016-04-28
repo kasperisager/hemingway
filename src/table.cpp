@@ -82,7 +82,7 @@ namespace lsh {
       vector k = this->masks_[i]->project(v);
       bucket* b = &this->partitions_[i][k];
 
-      b->insert(u);
+      b->push_back(u);
     }
 
     this->size_++;
@@ -100,13 +100,16 @@ namespace lsh {
 
     unsigned int n = this->partitions_.size();
 
-    std::shared_ptr<vector> u = std::make_shared<vector>(v);
-
     for (unsigned int i = 0; i < n; i++) {
       vector k = this->masks_[i]->project(v);
       bucket* b = &this->partitions_[i][k];
 
-      b->erase(u);
+      for(auto u = b->begin(); u != b->end(); u++) {
+        if (**u == v) {
+          b->erase(u);
+          break;
+        }
+      }
     }
 
     this->size_--;
