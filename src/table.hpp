@@ -2,6 +2,7 @@
 #pragma once
 
 #include <stdexcept>
+#include <climits>
 #include <memory>
 #include <vector>
 #include <unordered_map>
@@ -15,7 +16,7 @@ namespace lsh {
       /**
        * A bucket containing vectors who are candidate pairs.
        */
-      typedef std::unordered_set<vector> bucket;
+      typedef std::unordered_set<std::shared_ptr<vector>> bucket;
 
       /**
        * A partition consisting of buckets of vectors.

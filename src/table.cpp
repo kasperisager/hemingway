@@ -76,11 +76,13 @@ namespace lsh {
 
     unsigned int n = this->partitions_.size();
 
+    std::shared_ptr<vector> u = std::make_shared<vector>(v);
+
     for (unsigned int i = 0; i < n; i++) {
       vector k = this->masks_[i]->project(v);
       bucket* b = &this->partitions_[i][k];
 
-      b->insert(v);
+      b->insert(u);
     }
 
     this->size_++;
@@ -98,11 +100,13 @@ namespace lsh {
 
     unsigned int n = this->partitions_.size();
 
+    std::shared_ptr<vector> u = std::make_shared<vector>(v);
+
     for (unsigned int i = 0; i < n; i++) {
       vector k = this->masks_[i]->project(v);
       bucket* b = &this->partitions_[i][k];
 
-      b->erase(v);
+      b->erase(u);
     }
 
     this->size_--;
@@ -122,20 +126,20 @@ namespace lsh {
     unsigned int n = this->partitions_.size();
 
     // Keep track of the best candidate we've encountered.
-    const vector* best_c = NULL;
+    std::shared_ptr<vector> best_c;
 
     // Keep track of the distance to the best candidate.
-    unsigned int best_d = 0;
+    unsigned int best_d = UINT_MAX;
 
     for (unsigned int i = 0; i < n; i++) {
       vector k = this->masks_[i]->project(v);
       bucket* b = &this->partitions_[i][k];
 
-      for (const vector& c: *b) {
-        unsigned int d = vector::distance(v, c);
+      for (const std::shared_ptr<vector>& c: *b) {
+        unsigned int d = vector::distance(v, *c);
 
-        if (!best_c || d < best_d) {
-          best_c = &c;
+        if (d < best_d) {
+          best_c = c;
           best_d = d;
         }
       }
