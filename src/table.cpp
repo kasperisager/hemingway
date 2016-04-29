@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Kasper Kronborg Isager and Radosław Niemczyk.
-#include "table.hpp"
+#include <hemingway/table.hpp>
 
 namespace lsh {
   /**

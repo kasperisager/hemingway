@@ -5,7 +5,7 @@
 #include <memory>
 #include <vector>
 #include <random>
-#include "vector.hpp"
+#include <hemingway/vector.hpp>
 
 namespace lsh {
   class mask {

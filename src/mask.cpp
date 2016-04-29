@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Kasper Kronborg Isager and Radosław Niemczyk.
-#include "mask.hpp"
+#include <hemingway/mask.hpp>
 
 namespace lsh {
   /**

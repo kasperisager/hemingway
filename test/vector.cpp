@@ -1,6 +1,6 @@
 // Copyright (c) 2016 Kasper Kronborg Isager and Radosław Niemczyk.
-#include "../lib/test.hpp"
-#include "../src/vector.hpp"
+#include <test.hpp>
+#include <hemingway/vector.hpp>
 
 lsh::vector v({1, 0, 0, 1});
 

@@ -7,8 +7,8 @@
 #include <memory>
 #include <vector>
 #include <unordered_map>
-#include "vector.hpp"
-#include "mask.hpp"
+#include <hemingway/vector.hpp>
+#include <hemingway/mask.hpp>
 
 namespace lsh {
   class table {

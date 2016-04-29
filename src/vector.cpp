@@ -1,5 +1,5 @@
 // Copyright (c) 2016 Kasper Kronborg Isager and Radosław Niemczyk.
-#include "vector.hpp"
+#include <hemingway/vector.hpp>
 
 namespace lsh {
   /**
