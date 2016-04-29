@@ -5,7 +5,7 @@ CXXFLAGS += -std=c++11
 CXXFLAGS += -O3
 CXXFLAGS += -W -Wall -Werror
 CXXFLAGS += -I../include
-CXXFLAGS += -I../lib
+CXXFLAGS += -I../vendor
 CXXFLAGS += $CXXFLAGS
 
 !cc = |> $CXX $(CXXFLAGS) %f -o %o |> %B.o
