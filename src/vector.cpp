@@ -156,7 +156,7 @@ namespace lsh {
       unsigned int m = j + c > s ? s - j : c;
 
       // Grab the bits of the integer that correspond to the current chunk.
-      unsigned int b = (it >> (s - j - m)) & (1 << m) - 1;
+      unsigned int b = (it >> (s - j - m)) & ((1 << m) - 1);
 
       d += __builtin_popcount(this->components_[i] & b);
     }
