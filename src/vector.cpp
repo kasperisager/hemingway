@@ -8,7 +8,7 @@ namespace lsh {
    * @param components The existing component chunks.
    * @param size The number of components.
    */
-  vector::vector(const std::vector<unsigned short>& cs, unsigned short s) {
+  vector::vector(const std::vector<unsigned short>& cs, unsigned int s) {
     this->size_ = s;
 
     unsigned int n = cs.size();
@@ -54,7 +54,7 @@ namespace lsh {
    *
    * @return The number of components in this vector.
    */
-  unsigned short vector::size() const {
+  unsigned int vector::size() const {
     return this->size_;
   }
 
@@ -64,7 +64,7 @@ namespace lsh {
    * @param index The index of the component to get.
    * @return The component at the index.
    */
-  bool vector::get(unsigned short i) const {
+  bool vector::get(unsigned int i) const {
     unsigned int s = this->size_;
     unsigned int c = this->chunk_size_;
 
@@ -210,7 +210,7 @@ namespace lsh {
    * @param v The second vector.
    * @return The distance between the two vectors.
    */
-  unsigned short vector::distance(const vector& u, const vector& v) {
+  unsigned int vector::distance(const vector& u, const vector& v) {
     if (u.size() != v.size()) {
       throw std::invalid_argument("Invalid vector size");
     }
@@ -231,7 +231,7 @@ namespace lsh {
    * @param dimensions The number of dimensions in the vector.
    * @return The randomly generated vector.
    */
-  vector vector::random(unsigned short d) {
+  vector vector::random(unsigned int d) {
     std::random_device random;
     std::mt19937 generator(random());
     std::uniform_int_distribution<> components(0, 1);

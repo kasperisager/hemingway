@@ -17,7 +17,7 @@ namespace lsh {
       /**
        * The number of components in this vector.
        */
-      unsigned short size_;
+      unsigned int size_;
 
       /**
        * The chunked components of this vector.
@@ -30,7 +30,7 @@ namespace lsh {
        * @param components The existing component chunks.
        * @param size The number of components.
        */
-      vector(const std::vector<unsigned short>& components, unsigned short size);
+      vector(const std::vector<unsigned short>& components, unsigned int size);
 
     public:
       /**
@@ -45,7 +45,7 @@ namespace lsh {
        *
        * @return The number of components in this vector.
        */
-      unsigned short size() const;
+      unsigned int size() const;
 
       /**
        * Get the component at the specified index of this vector.
@@ -53,7 +53,7 @@ namespace lsh {
        * @param index The index of the component to get.
        * @return The component at the index.
        */
-      bool get(unsigned short index) const;
+      bool get(unsigned int index) const;
 
       /**
        * Get a string representation of this vector.
@@ -110,7 +110,7 @@ namespace lsh {
        * @param v The second vector.
        * @return The distance between the two vectors.
        */
-      static unsigned short distance(const vector& u, const vector& v);
+      static unsigned int distance(const vector& u, const vector& v);
 
       /**
        * Construct a random vector of a given dimensionality.
@@ -118,7 +118,7 @@ namespace lsh {
        * @param dimensions The number of dimensions in the vector.
        * @return The randomly generated vector.
        */
-      static vector random(unsigned short dimensions);
+      static vector random(unsigned int dimensions);
   };
 }
 
