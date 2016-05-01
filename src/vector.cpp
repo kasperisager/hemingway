@@ -8,7 +8,7 @@ namespace lsh {
    * @param components The existing component chunks.
    * @param size The number of components.
    */
-  vector::vector(const std::vector<unsigned short>& cs, unsigned int s) {
+  vector::vector(const std::vector<unsigned int>& cs, unsigned int s) {
     this->size_ = s;
 
     unsigned int n = cs.size();
@@ -156,7 +156,7 @@ namespace lsh {
       unsigned int m = j + c > s ? s - j : c;
 
       // Grab the bits of the integer that correspond to the current chunk.
-      unsigned int b = (it >> (s - j - m)) & ((1 << m) - 1);
+      unsigned int b = (it >> (s - j - m)) & (((unsigned long) 1 << m) - 1);
 
       d += __builtin_popcount(this->components_[i] & b);
     }
@@ -177,7 +177,7 @@ namespace lsh {
 
     unsigned int n = this->components_.size();
 
-    std::vector<unsigned short> c(n);
+    std::vector<unsigned int> c(n);
 
     for (unsigned int i = 0; i < n; i++) {
       c[i] = this->components_[i] & v.components_[i];

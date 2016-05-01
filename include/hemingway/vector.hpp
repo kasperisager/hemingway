@@ -12,7 +12,7 @@ namespace lsh {
       /**
        * The size of component chunks.
        */
-      static const unsigned char chunk_size_ = sizeof(unsigned short) * 8;
+      static const unsigned int chunk_size_ = sizeof(unsigned int) * 8;
 
       /**
        * The number of components in this vector.
@@ -22,7 +22,7 @@ namespace lsh {
       /**
        * The chunked components of this vector.
        */
-      std::vector<unsigned short> components_;
+      std::vector<unsigned int> components_;
 
       /**
        * Create a new vector from existing component chunks.
@@ -30,7 +30,7 @@ namespace lsh {
        * @param components The existing component chunks.
        * @param size The number of components.
        */
-      vector(const std::vector<unsigned short>& components, unsigned int size);
+      vector(const std::vector<unsigned int>& components, unsigned int size);
 
     public:
       /**

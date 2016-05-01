@@ -36,7 +36,7 @@ namespace lsh {
 
     this->dimensions_ = d;
 
-    unsigned int n = (1 << (r + 1)) - 1;
+    unsigned int n = ((unsigned long) 1 << (r + 1)) - 1;
 
     covering_mask::mapping m;
 
