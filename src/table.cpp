@@ -9,7 +9,7 @@ namespace lsh {
    */
   table::table(classic c) {
     unsigned int d = c.dimensions;
-    unsigned int w = c.width;
+    unsigned int s = c.samples;
     unsigned int p = c.partitions;
 
     this->dimensions_ = d;
@@ -18,7 +18,7 @@ namespace lsh {
     this->partitions_.resize(p);
 
     for (unsigned int i = 0; i < p; i++) {
-      std::unique_ptr<mask> mask(new classic_mask(d, w));
+      std::unique_ptr<mask> mask(new classic_mask(d, s));
 
       this->masks_[i] = std::move(mask);
       this->partitions_[i] = partition();

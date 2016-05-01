@@ -26,7 +26,7 @@ namespace lsh {
       /**
        * The number of dimensions of vectors in the table.
        */
-      unsigned short dimensions_;
+      unsigned int dimensions_;
 
       /**
        * The number of vectors in this lookup table.
@@ -48,12 +48,12 @@ namespace lsh {
         /**
          * The number of dimensions of vectors in the table.
          */
-        unsigned short dimensions;
+        unsigned int dimensions;
 
         /**
-         * The width of each vector hash.
+         * The number of bits to sample from each vector.
          */
-        unsigned short width;
+        unsigned short samples;
 
         /**
          * The number of paritions to use.
@@ -65,7 +65,7 @@ namespace lsh {
         /**
          * The number of dimensions of vectors in the table.
          */
-        unsigned short dimensions;
+        unsigned int dimensions;
 
         /**
          * The radius to cover in the table.

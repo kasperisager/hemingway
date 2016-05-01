@@ -6,11 +6,11 @@
 
 using namespace lsh;
 
-table t_cla({.dimensions = 128, .width = 32, .partitions = 64});
+table t_cla({.dimensions = 128, .samples = 32, .partitions = 64});
 table t_cov({.dimensions = 128, .radius = 5});
 
 BENCHMARK(table, table_classic, 500, 4) {
-  table({.dimensions = 128, .width = 32, .partitions = 64});
+  table({.dimensions = 128, .samples = 32, .partitions = 64});
 }
 
 BENCHMARK(table, table_covering, 500, 2) {

@@ -20,9 +20,9 @@ namespace lsh {
    * Construct a new classic mask.
    *
    * @param dimensionality The dimensionality of vectors to mask.
-   * @param width The number of dimensions in vector projections.
+   * @param samples The number of bits to sample from vectors.
    */
-  classic_mask::classic_mask(unsigned short d, unsigned short w) {
+  classic_mask::classic_mask(unsigned int d, unsigned int s) {
     std::random_device random;
     std::mt19937 generator(random());
     std::uniform_int_distribution<> indices(0, d - 1);
@@ -31,7 +31,7 @@ namespace lsh {
 
     std::vector<bool> c(d);
 
-    for (unsigned int i = 0; i < w; i++) {
+    for (unsigned int i = 0; i < s; i++) {
       c[indices(generator)] = 1;
     }
 
@@ -47,7 +47,7 @@ namespace lsh {
    * @param vector The vector to use for this mask.
    * @param mapping The random vector mapping to use for the mask.
    */
-  covering_mask::covering_mask(unsigned short d, unsigned short v, const mapping& m) {
+  covering_mask::covering_mask(unsigned int d, unsigned int v, const mapping& m) {
     this->dimensions_ = d;
 
     std::vector<bool> c(d);
