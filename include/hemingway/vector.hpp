@@ -99,7 +99,7 @@ namespace lsh {
        *
        * @return The hash of this vector.
        */
-      unsigned long hash() const;
+      unsigned int hash() const;
 
       /**
        * Compute the distance between two vectors.

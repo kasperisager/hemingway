@@ -14,13 +14,11 @@ namespace lsh {
 
     this->dimensions_ = d;
 
-    this->masks_.resize(p);
+    this->masks_.reserve(p);
     this->partitions_.resize(p);
 
     for (unsigned int i = 0; i < p; i++) {
-      std::unique_ptr<mask> mask(new classic_mask(d, s));
-
-      this->masks_[i] = std::move(mask);
+      this->masks_.push_back(classic_mask(d, s));
       this->partitions_[i] = partition();
     }
   }
@@ -44,13 +42,11 @@ namespace lsh {
       m.push_back(vector::random(n + 1));
     }
 
-    this->masks_.resize(n);
+    this->masks_.reserve(n);
     this->partitions_.resize(n);
 
     for (unsigned int i = 0; i < n; i++) {
-      std::unique_ptr<mask> mask(new covering_mask(d, i + 1, m));
-
-      this->masks_[i] = std::move(mask);
+      this->masks_.push_back(covering_mask(d, i + 1, m));
       this->partitions_[i] = partition();
     }
   }
@@ -76,43 +72,18 @@ namespace lsh {
 
     unsigned int n = this->partitions_.size();
 
-    std::shared_ptr<vector> u = std::make_shared<vector>(v);
+    this->vectors_.push_back(v);
+
+    unsigned int u = this->vectors_.size() - 1;
 
     for (unsigned int i = 0; i < n; i++) {
-      vector k = this->masks_[i]->project(v);
-      bucket* b = &this->partitions_[i][k];
+      vector k = this->masks_[i].project(v);
+      bucket& b = this->partitions_[i][k];
 
-      b->push_back(u);
+      b.push_back(u);
     }
 
     this->size_++;
-  }
-
-  /**
-   * Erase a vector from this lookup table.
-   *
-   * @param vector The vector to erase from this lookup table.
-   */
-  void table::erase(const vector& v) {
-    if (this->dimensions_ != v.size()) {
-      throw std::invalid_argument("Invalid vector size");
-    }
-
-    unsigned int n = this->partitions_.size();
-
-    for (unsigned int i = 0; i < n; i++) {
-      vector k = this->masks_[i]->project(v);
-      bucket* b = &this->partitions_[i][k];
-
-      for(auto u = b->begin(); u != b->end(); u++) {
-        if (**u == v) {
-          b->erase(u);
-          break;
-        }
-      }
-    }
-
-    this->size_--;
   }
 
   /**
@@ -129,20 +100,22 @@ namespace lsh {
     unsigned int n = this->partitions_.size();
 
     // Keep track of the best candidate we've encountered.
-    std::shared_ptr<vector> best_c;
+    const vector* best_c = nullptr;
 
     // Keep track of the distance to the best candidate.
     unsigned int best_d = USHRT_MAX;
 
     for (unsigned int i = 0; i < n; i++) {
-      vector k = this->masks_[i]->project(v);
-      bucket* b = &this->partitions_[i][k];
+      vector k = this->masks_[i].project(v);
+      bucket& b = this->partitions_[i][k];
 
-      for (const std::shared_ptr<vector>& c: *b) {
-        unsigned int d = vector::distance(v, *c);
+      for (unsigned int u: b) {
+        vector& c = this->vectors_[u];
+
+        unsigned int d = vector::distance(v, c);
 
         if (d < best_d) {
-          best_c = c;
+          best_c = &c;
           best_d = d;
         }
       }

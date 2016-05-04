@@ -13,9 +13,9 @@ namespace lsh {
   class table {
     private:
       /**
-       * A bucket containing vectors who are candidate pairs.
+       * A bucket containing candidate pairs.
        */
-      typedef std::vector<std::shared_ptr<vector>> bucket;
+      typedef std::vector<unsigned int> bucket;
 
       /**
        * A partition consisting of buckets of vectors.
@@ -33,9 +33,14 @@ namespace lsh {
       unsigned int size_;
 
       /**
+       * The vectors stored in this lookup table.
+       */
+      std::vector<vector> vectors_;
+
+      /**
        * The bit masks used for constructing vector projections.
        */
-      std::vector<std::unique_ptr<mask>> masks_;
+      std::vector<mask> masks_;
 
       /**
        * The partitions containing the buckets of vectors.
