@@ -7,7 +7,7 @@ namespace lsh {
    *
    * @param config The configuration parameters for the lookup table.
    */
-  table::table(classic c) {
+  table::table(const classic& c) {
     unsigned int d = c.dimensions;
     unsigned int s = c.samples;
     unsigned int p = c.partitions;
@@ -28,7 +28,7 @@ namespace lsh {
    *
    * @param config The configuration parameters for the lookup table.
    */
-  table::table(covering c) {
+  table::table(const covering& c) {
     unsigned int d = c.dimensions;
     unsigned int r = c.radius;
 
@@ -49,6 +49,19 @@ namespace lsh {
       this->masks_.push_back(covering_mask(d, i + 1, m));
       this->partitions_[i] = partition();
     }
+  }
+
+  /**
+   * Construct a brute-force lookup table.
+   *
+   * @param config The configuration parameters for the lookup table.
+   */
+  table::table(const brute& c) {
+    unsigned int d = c.dimensions;
+
+    this->dimensions_ = d;
+    this->masks_.push_back(brute_mask(d));
+    this->partitions_.push_back(partition());
   }
 
   /**

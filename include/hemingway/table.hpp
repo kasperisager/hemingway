@@ -77,19 +77,33 @@ namespace lsh {
         unsigned short radius;
       };
 
+      struct brute {
+        /**
+         * The number of dimensions of vectors in the table.
+         */
+        unsigned int dimensions;
+      };
+
       /**
        * Construct a new classic lookup table.
        *
        * @param config The configuration parameters for the lookup table.
        */
-      table(classic config);
+      table(const classic& config);
 
       /**
        * Construct a new covering lookup table.
        *
        * @param config The configuration parameters for the lookup table.
        */
-      table(covering config);
+      table(const covering& config);
+
+      /**
+       * Construct a brute-force lookup table.
+       *
+       * @param config The configuration parameters for the lookup table.
+       */
+      table(const brute& config);
 
       /**
        * Get the number of vectors in this lookup table.

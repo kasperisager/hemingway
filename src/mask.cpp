@@ -60,4 +60,19 @@ namespace lsh {
 
     this->mask_ = std::move(p);
   }
+
+  /**
+   * Construct a new brute-force mask.
+   *
+   * @param dimensionality The dimensionality of vectors to mask.
+   */
+  brute_mask::brute_mask(unsigned int d) {
+    this->dimensions_ = d;
+
+    std::vector<bool> c(d);
+
+    std::unique_ptr<vector> p(new vector(c));
+
+    this->mask_ = std::move(p);
+  }
 }

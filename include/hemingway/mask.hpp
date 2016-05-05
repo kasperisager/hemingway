@@ -57,4 +57,14 @@ namespace lsh {
        */
       covering_mask(unsigned int dimensions, unsigned int vector, const mapping& mapping);
   };
+
+  class brute_mask: public mask {
+    public:
+      /**
+       * Construct a new brute-force mask.
+       *
+       * @param dimensionality The dimensionality of vectors to mask.
+       */
+      brute_mask(unsigned int dimensions);
+  };
 }
