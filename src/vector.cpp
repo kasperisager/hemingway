@@ -191,7 +191,7 @@ namespace lsh {
    *
    * @return The hash of this vector.
    */
-  unsigned int vector::hash() const {
+  unsigned long vector::hash() const {
     unsigned int n = this->components_.size();
 
     unsigned long h = 7;
@@ -200,7 +200,7 @@ namespace lsh {
       h = 31 * h + this->components_[i];
     }
 
-    return h ^ (h >> 32);
+    return h;
   }
 
   /**
