@@ -13,7 +13,6 @@ namespace lsh {
     unsigned int p = c.partitions;
 
     this->dimensions_ = d;
-
     this->masks_.reserve(p);
     this->partitions_.reserve(p);
 
@@ -31,19 +30,17 @@ namespace lsh {
   table::table(const covering& c) {
     unsigned int d = c.dimensions;
     unsigned int r = c.radius;
+    unsigned int n = ((unsigned long) 1 << (r + 1)) - 1;
 
     this->dimensions_ = d;
-
-    unsigned int n = ((unsigned long) 1 << (r + 1)) - 1;
+    this->masks_.reserve(n);
+    this->partitions_.reserve(n);
 
     covering_mask::mapping m;
 
     for (unsigned int i = 0; i < d; i++) {
       m.push_back(vector::random(n + 1));
     }
-
-    this->masks_.reserve(n);
-    this->partitions_.reserve(n);
 
     for (unsigned int i = 0; i < n; i++) {
       this->masks_.push_back(covering_mask(d, i + 1, m));
@@ -70,7 +67,7 @@ namespace lsh {
    * @return The number of vectors in this lookup table.
    */
   unsigned int table::size() const {
-    return this->size_;
+    return this->vectors_.size();
   }
 
   /**
@@ -84,10 +81,9 @@ namespace lsh {
     }
 
     unsigned int n = this->partitions_.size();
+    unsigned int u = this->vectors_.size();
 
     this->vectors_.push_back(v);
-
-    unsigned int u = this->vectors_.size() - 1;
 
     for (unsigned int i = 0; i < n; i++) {
       vector k = this->masks_[i].project(v);
@@ -95,8 +91,6 @@ namespace lsh {
 
       b.push_back(u);
     }
-
-    this->size_++;
   }
 
   /**
@@ -116,7 +110,7 @@ namespace lsh {
     const vector* best_c = nullptr;
 
     // Keep track of the distance to the best candidate.
-    unsigned int best_d = USHRT_MAX;
+    unsigned int best_d = UINT_MAX;
 
     for (unsigned int i = 0; i < n; i++) {
       vector k = this->masks_[i].project(v);
@@ -134,11 +128,6 @@ namespace lsh {
       }
     }
 
-    // In case we didn't find a vector then return the null vector.
-    if (!best_c) {
-      return vector({});
-    }
-
-    return *best_c;
+    return best_c ? *best_c : vector({});
   }
 }

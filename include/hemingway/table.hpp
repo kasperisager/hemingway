@@ -28,11 +28,6 @@ namespace lsh {
       unsigned int dimensions_;
 
       /**
-       * The number of vectors in this lookup table.
-       */
-      unsigned int size_;
-
-      /**
        * The vectors stored in this lookup table.
        */
       std::vector<vector> vectors_;
