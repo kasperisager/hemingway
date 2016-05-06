@@ -15,11 +15,11 @@ namespace lsh {
     this->dimensions_ = d;
 
     this->masks_.reserve(p);
-    this->partitions_.resize(p);
+    this->partitions_.reserve(p);
 
     for (unsigned int i = 0; i < p; i++) {
       this->masks_.push_back(classic_mask(d, s));
-      this->partitions_[i] = partition();
+      this->partitions_.push_back(partition());
     }
   }
 
@@ -43,11 +43,11 @@ namespace lsh {
     }
 
     this->masks_.reserve(n);
-    this->partitions_.resize(n);
+    this->partitions_.reserve(n);
 
     for (unsigned int i = 0; i < n; i++) {
       this->masks_.push_back(covering_mask(d, i + 1, m));
-      this->partitions_[i] = partition();
+      this->partitions_.push_back(partition());
     }
   }
 

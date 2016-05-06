@@ -13,10 +13,10 @@ namespace lsh {
 
     unsigned int n = cs.size();
 
-    this->components_.resize(n, 0);
+    this->components_.reserve(n);
 
     for (unsigned int i = 0; i < n; i++) {
-      this->components_[i] = cs[i];
+      this->components_.push_back(cs[i]);
     }
   }
 
@@ -31,21 +31,23 @@ namespace lsh {
     unsigned int s = this->size_;
     unsigned int c = this->chunk_size_;
     unsigned int i = 0;
-    unsigned int k = 0;
     unsigned int n = (s + c - 1) / c;
 
-    this->components_.resize(n, 0);
+    this->components_.reserve(n);
 
     while (i < s) {
       // Compute the number of bits in the current chunk.
       unsigned int b = i + c > s ? s - i : c;
 
+      unsigned int e = 0;
+
       for (unsigned int j = 0; j < b; j++) {
-        this->components_[k] |= cs[i + j] << (b - j - 1);
+        e |= cs[i + j] << (b - j - 1);
       }
 
+      this->components_.push_back(e);
+
       i += b;
-      k += 1;
     }
   }
 
@@ -194,10 +196,12 @@ namespace lsh {
   unsigned int vector::hash() const {
     unsigned int n = this->components_.size();
 
-    unsigned long h = 7;
+    unsigned long h = 0;
+
+    std::hash<unsigned int> hasher;
 
     for (unsigned int i = 0; i < n; i++) {
-      h = 31 * h + this->components_[i];
+      h ^= hasher(this->components_[i]) + (h << 6) + (h >> 2);
     }
 
     return h ^ (h >> 32);
