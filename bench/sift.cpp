@@ -87,9 +87,13 @@ BENCHMARK(table, query_classic, runs, qn / runs) {
 
   if (vector::distance(q, t) <= 4) {
     if (r.size() == 0) {
+      std::cout << "                ";
+      std::cout << "Incorrect result: Found nothing" << std::endl;
     }
 
     else if (vector::distance(q, r) > 4) {
+      std::cout << "                ";
+      std::cout << "Incorrect result: False negative" << std::endl;
     }
   }
 }
@@ -104,9 +108,13 @@ BENCHMARK(table, query_covering, runs, qn / runs) {
 
   if (vector::distance(q, t) <= 4) {
     if (r.size() == 0) {
+      std::cout << "                ";
+      std::cout << "Incorrect result: Found nothing" << std::endl;
     }
 
     else if (vector::distance(q, r) > 4) {
+      std::cout << "                ";
+      std::cout << "Incorrect result: False negative" << std::endl;
     }
   }
 }
