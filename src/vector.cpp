@@ -109,7 +109,7 @@ namespace lsh {
    */
   bool vector::operator==(const vector& v) const {
     if (this->size() != v.size()) {
-      throw std::invalid_argument("Invalid vector size");
+      return false;
     }
 
     return vector::distance(*this, v) == 0;
