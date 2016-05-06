@@ -52,7 +52,7 @@ TEST_CASE("#& computes the bitwise AND of two vectors") {
 }
 
 TEST_CASE("#hash returns the hash value of a vector") {
-  REQUIRE(v.hash() == 226);
+  REQUIRE(v.hash() == 9);
 }
 
 TEST_CASE(".distance computes the distances between two vectors") {
