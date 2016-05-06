@@ -91,7 +91,7 @@ namespace lsh {
 
     for (unsigned int i = 0; i < n; i++) {
       vector k = this->masks_[i].project(v);
-      bucket& b = this->partitions_[i][k];
+      bucket& b = this->partitions_[i][k.hash()];
 
       b.push_back(u);
     }
@@ -120,7 +120,7 @@ namespace lsh {
 
     for (unsigned int i = 0; i < n; i++) {
       vector k = this->masks_[i].project(v);
-      bucket& b = this->partitions_[i][k];
+      bucket& b = this->partitions_[i][k.hash()];
 
       for (unsigned int u: b) {
         vector& c = this->vectors_[u];

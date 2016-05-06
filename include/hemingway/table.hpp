@@ -20,7 +20,7 @@ namespace lsh {
       /**
        * A partition consisting of buckets of vectors.
        */
-      typedef std::unordered_map<vector, bucket> partition;
+      typedef std::unordered_map<unsigned int, bucket> partition;
 
       /**
        * The number of dimensions of vectors in the table.

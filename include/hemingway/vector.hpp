@@ -99,7 +99,7 @@ namespace lsh {
        *
        * @return The hash of this vector.
        */
-      unsigned long hash() const;
+      unsigned int hash() const;
 
       /**
        * Compute the distance between two vectors.
@@ -119,23 +119,5 @@ namespace lsh {
        * @return The randomly generated vector.
        */
       static vector random(unsigned int dimensions);
-  };
-}
-
-namespace std {
-  template <> struct hash<lsh::vector> {
-    public:
-      /**
-       * Compute the hash of a vector.
-       *
-       * This bit of ugliness is required in order for the C++ standard library
-       * to utilise LSH vectors in hash-based data structures such as the unordered
-       * sets used in lookup tables.
-       *
-       * @return The hash of the vector.
-       */
-      size_t operator()(const lsh::vector& vector) const {
-        return vector.hash();
-      }
   };
 }
