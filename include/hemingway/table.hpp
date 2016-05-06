@@ -18,7 +18,7 @@ namespace lsh {
       typedef std::vector<unsigned int> bucket;
 
       /**
-       * A partition consisting of buckets of vectors.
+       * A partition consisting of buckets.
        */
       typedef std::unordered_map<unsigned int, bucket> partition;
 
