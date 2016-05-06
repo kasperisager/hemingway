@@ -24,7 +24,7 @@ BENCHMARK(vector, get, 10000, 18000) {
 }
 
 BENCHMARK(vector, equals, 10000, 10000) {
-  v == u;
+  void(v == u);
 }
 
 BENCHMARK(vector, dot_product, 10000, 10000) {
