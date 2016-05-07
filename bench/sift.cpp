@@ -45,10 +45,16 @@ std::vector<vector> qs = parse("bench/data/queries.bin");
 
 std::vector<vector> gt;
 
+double delta = 0.01;
+
+unsigned short r = 4;
+unsigned short l = (1 << (r + 1)) - 1;
+unsigned short k = ceil(log2(1 - pow(delta, 1.0 / l)) / log2(1 - r / 64.0));
+
 table t_lin(table::brute({.dimensions = 64}));
 
-table t_cla({.dimensions = 64, .samples = 31, .partitions = 31});
-table t_cov({.dimensions = 64, .radius = 4});
+table t_cla({.dimensions = 64, .samples = k, .partitions = l});
+table t_cov({.dimensions = 64, .radius = r});
 
 unsigned int vn = vs.size();
 unsigned int qn = qs.size();
@@ -83,15 +89,15 @@ BENCHMARK(table, query_classic, runs, qn / runs) {
   vector q = qs[i];
   vector t = gt[i];
 
-  vector r = t_cla.query(q);
+  vector f = t_cla.query(q);
 
-  if (vector::distance(q, t) <= 4) {
-    if (r.size() == 0) {
+  if (vector::distance(q, t) <= r) {
+    if (f.size() == 0) {
       std::cout << "                ";
       std::cout << "Incorrect result: Found nothing" << std::endl;
     }
 
-    else if (vector::distance(q, r) > 4) {
+    else if (vector::distance(q, f) > r) {
       std::cout << "                ";
       std::cout << "Incorrect result: False negative" << std::endl;
     }
@@ -104,15 +110,15 @@ BENCHMARK(table, query_covering, runs, qn / runs) {
   vector q = qs[i];
   vector t = gt[i];
 
-  vector r = t_cov.query(q);
+  vector f = t_cov.query(q);
 
-  if (vector::distance(q, t) <= 4) {
-    if (r.size() == 0) {
+  if (vector::distance(q, t) <= r) {
+    if (f.size() == 0) {
       std::cout << "                ";
       std::cout << "Incorrect result: Found nothing" << std::endl;
     }
 
-    else if (vector::distance(q, r) > 4) {
+    else if (vector::distance(q, f) > r) {
       std::cout << "                ";
       std::cout << "Incorrect result: False negative" << std::endl;
     }
