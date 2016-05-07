@@ -18,6 +18,8 @@ namespace lsh {
     for (unsigned int i = 0; i < n; i++) {
       this->components_.push_back(cs[i]);
     }
+
+    this->components_.shrink_to_fit();
   }
 
   /**
@@ -49,6 +51,8 @@ namespace lsh {
 
       i += b;
     }
+
+    this->components_.shrink_to_fit();
   }
 
   /**
