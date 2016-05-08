@@ -9,10 +9,6 @@ namespace lsh {
    * @return The projected vector.
    */
   vector mask::project(const vector& v) const {
-    if (this->dimensions_ != v.size()) {
-      throw std::invalid_argument("Invalid vector size");
-    }
-
     return *this->mask_ & v;
   }
 
@@ -26,8 +22,6 @@ namespace lsh {
     std::random_device random;
     std::mt19937 generator(random());
     std::uniform_int_distribution<> indices(0, d - 1);
-
-    this->dimensions_ = d;
 
     std::vector<bool> c(d);
 
@@ -48,8 +42,6 @@ namespace lsh {
    * @param mapping The random vector mapping to use for the mask.
    */
   covering_mask::covering_mask(unsigned int d, unsigned int v, const mapping& m) {
-    this->dimensions_ = d;
-
     std::vector<bool> c(d);
 
     for (unsigned int j = 0; j < d; j++) {
@@ -67,8 +59,6 @@ namespace lsh {
    * @param dimensionality The dimensionality of vectors to mask.
    */
   brute_mask::brute_mask(unsigned int d) {
-    this->dimensions_ = d;
-
     std::vector<bool> c(d);
 
     std::unique_ptr<vector> p(new vector(c));

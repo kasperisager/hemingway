@@ -11,11 +11,6 @@ namespace lsh {
   class mask {
     protected:
       /**
-       * The dimensionality of vectors to mask.
-       */
-      unsigned int dimensions_;
-
-      /**
        * The vector mask to use.
        */
       std::unique_ptr<vector> mask_;
