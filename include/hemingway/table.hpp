@@ -5,6 +5,7 @@
 #include <climits>
 #include <memory>
 #include <vector>
+#include <algorithm>
 #include <unordered_map>
 #include <hemingway/vector.hpp>
 #include <hemingway/mask.hpp>
@@ -23,6 +24,11 @@ namespace lsh {
       typedef std::unordered_map<unsigned int, bucket> partition;
 
       /**
+       * The next available vector id.
+       */
+      unsigned int next_id_;
+
+      /**
        * The number of dimensions of vectors in the table.
        */
       unsigned int dimensions_;
@@ -30,7 +36,7 @@ namespace lsh {
       /**
        * The vectors stored in this lookup table.
        */
-      std::vector<vector> vectors_;
+      std::unordered_map<unsigned int, vector> vectors_;
 
       /**
        * The bit masks used for constructing vector projections.

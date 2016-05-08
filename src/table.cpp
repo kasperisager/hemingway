@@ -81,15 +81,48 @@ namespace lsh {
     }
 
     unsigned int n = this->partitions_.size();
-    unsigned int u = this->vectors_.size();
+    unsigned int u = this->next_id_++;
 
-    this->vectors_.push_back(v);
+    this->vectors_.insert({u, v});
 
     for (unsigned int i = 0; i < n; i++) {
       vector k = this->masks_[i].project(v);
       bucket& b = this->partitions_[i][k.hash()];
 
       b.push_back(u);
+    }
+  }
+
+  /**
+   * Erase a vector from this lookup table.
+   *
+   * @param vector The vector to erase from this lookup table.
+   */
+  void table::erase(const vector& v) {
+    if (this->dimensions_ != v.size()) {
+      throw std::invalid_argument("Invalid vector size");
+    }
+
+    unsigned int n = this->partitions_.size();
+    unsigned int u;
+
+    for (const auto& it: this->vectors_) {
+      if (it.second == v) {
+        u = it.first;
+        break;
+      }
+    }
+
+    this->vectors_.erase(u);
+
+    for (unsigned int i = 0; i < n; i++) {
+      partition& p = this->partitions_[i];
+
+      for (auto& it: p) {
+        bucket& b = it.second;
+
+        b.erase(std::remove(b.begin(), b.end(), u));
+      }
     }
   }
 
@@ -117,7 +150,7 @@ namespace lsh {
       bucket& b = this->partitions_[i][k.hash()];
 
       for (unsigned int u: b) {
-        vector& c = this->vectors_[u];
+        vector& c = this->vectors_.at(u);
 
         unsigned int d = vector::distance(v, c);
 
