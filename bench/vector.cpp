@@ -11,38 +11,38 @@ std::vector<bool> c(128);
 vector u = vector::random(128);
 vector v = vector::random(128);
 
-BENCHMARK(vector, vector, 10000, 300) {
+BENCHMARK(vector, vector, 10000, 350) {
   lsh::vector v(c);
 }
 
-BENCHMARK(vector, size, 10000, 75000) {
+BENCHMARK(vector, size, 10000, 55000) {
   v.size();
 }
 
-BENCHMARK(vector, get, 10000, 18000) {
+BENCHMARK(vector, get, 10000, 16000) {
   v.get(64);
 }
 
-BENCHMARK(vector, equals, 10000, 10000) {
+BENCHMARK(vector, equals, 10000, 5500) {
   void(v == u);
 }
 
-BENCHMARK(vector, dot_product, 10000, 10000) {
+BENCHMARK(vector, dot_product, 10000, 5500) {
   v * u;
 }
 
-BENCHMARK(vector, and, 10000, 500) {
+BENCHMARK(vector, and, 10000, 600) {
   v & u;
 }
 
-BENCHMARK(vector, hash, 10000, 28000) {
+BENCHMARK(vector, hash, 10000, 18000) {
   v.hash();
 }
 
-BENCHMARK(vector, distance, 10000, 9000) {
+BENCHMARK(vector, distance, 10000, 6000) {
   vector::distance(u, v);
 }
 
-BENCHMARK(vector, random, 10000, 10) {
+BENCHMARK(vector, random, 10000, 30) {
   vector::random(128);
 }
