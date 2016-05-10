@@ -108,7 +108,7 @@ namespace lsh {
   }
 
   /**
-   * Check if this vector equals another vector.
+   * Check if this vector is equal to another vector.
    *
    * @param vector The other vector.
    * @return `true` if this vector equals the other vector, otherwise `false`.
@@ -119,6 +119,16 @@ namespace lsh {
     }
 
     return vector::distance(*this, v) == 0;
+  }
+
+  /**
+   * Check if this vector is different from another vector.
+   *
+   * @param vector The other vector.
+   * @return `true` if this vector differs from the other vector, otherwise `false`.
+   */
+  bool vector::operator!=(const vector& v) const {
+    return !(*this == v);
   }
 
   /**

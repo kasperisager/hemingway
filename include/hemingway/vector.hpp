@@ -63,12 +63,20 @@ namespace lsh {
       std::string to_string() const;
 
       /**
-       * Check if this vector equals another vector.
+       * Check if this vector is equal to another vector.
        *
        * @param vector The other vector.
        * @return `true` if this vector equals the other vector, otherwise `false`.
        */
       bool operator==(const vector& vector) const;
+
+      /**
+       * Check if this vector is different from another vector.
+       *
+       * @param vector The other vector.
+       * @return `true` if this vector differs from the other vector, otherwise `false`.
+       */
+      bool operator!=(const vector& vector) const;
 
       /**
        * Compute the dot product of this and another vector.
