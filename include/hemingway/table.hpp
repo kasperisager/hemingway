@@ -5,7 +5,6 @@
 #include <climits>
 #include <memory>
 #include <vector>
-#include <algorithm>
 #include <unordered_map>
 #include <hemingway/vector.hpp>
 #include <hemingway/mask.hpp>

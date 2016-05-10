@@ -110,7 +110,7 @@ namespace lsh {
     }
 
     unsigned int n = this->partitions_.size();
-    unsigned int u;
+    unsigned int u = 0;
 
     for (const auto& it: this->vectors_) {
       if (it.second == v) {
@@ -127,7 +127,12 @@ namespace lsh {
       for (auto& it: p) {
         bucket& b = it.second;
 
-        b.erase(std::remove(b.begin(), b.end(), u));
+        for (auto j = b.begin(); j != b.end(); j++) {
+          if (*j == u) {
+            b.erase(j);
+            break;
+          }
+        }
       }
     }
   }
