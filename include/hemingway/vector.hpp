@@ -79,14 +79,6 @@ namespace lsh {
       unsigned int operator*(const vector& vector) const;
 
       /**
-       * Compute the dot product of this vector and an integer.
-       *
-       * @param integer The integer.
-       * @return The dot product of this vector and an integer.
-       */
-      unsigned int operator*(unsigned int integer) const;
-
-      /**
        * Compute the bitwise AND of this and another vector.
        *
        * @param vector The other vector.

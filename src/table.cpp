@@ -30,20 +30,26 @@ namespace lsh {
   table::table(const covering& c) {
     unsigned int d = c.dimensions;
     unsigned int r = c.radius;
-    unsigned int n = ((unsigned long) 1 << (r + 1)) - 1;
+    unsigned int n = 1 << (r + 1);
 
     this->dimensions_ = d;
-    this->masks_.reserve(n);
-    this->partitions_.reserve(n);
+    this->masks_.reserve(n - 1);
+    this->partitions_.reserve(n - 1);
 
     covering_mask::mapping m;
 
     for (unsigned int i = 0; i < d; i++) {
-      m.push_back(vector::random(n + 1));
+      m.push_back(vector::random(n));
     }
 
-    for (unsigned int i = 0; i < n; i++) {
-      this->masks_.push_back(covering_mask(d, i + 1, m));
+    for (unsigned int i = 1; i < n; i++) {
+      std::vector<bool> c(n);
+
+      for (unsigned int j = 0; j < n; j++) {
+        c[j] = (i >> (n - j - 1)) & 1;
+      }
+
+      this->masks_.push_back(covering_mask(d, vector(c), m));
       this->partitions_.push_back(partition());
     }
   }

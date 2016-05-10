@@ -41,7 +41,7 @@ namespace lsh {
    * @param vector The vector to use for this mask.
    * @param mapping The random vector mapping to use for the mask.
    */
-  covering_mask::covering_mask(unsigned int d, unsigned int v, const mapping& m) {
+  covering_mask::covering_mask(unsigned int d, const vector& v, const mapping& m) {
     std::vector<bool> c(d);
 
     for (unsigned int j = 0; j < d; j++) {

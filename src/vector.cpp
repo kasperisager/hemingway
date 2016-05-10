@@ -143,34 +143,6 @@ namespace lsh {
   }
 
   /**
-   * Compute the dot product of this vector and an integer.
-   *
-   * @param integer The integer.
-   * @return The dot product of this vector and an integer.
-   */
-  unsigned int vector::operator*(unsigned int it) const {
-    unsigned int d = 0;
-    unsigned int s = this->size_;
-    unsigned int c = this->chunk_size_;
-    unsigned int n = this->components_.size();
-
-    for (unsigned int i = 0; i < n; i++) {
-      // Compute the index of the first bit of the current chunk.
-      unsigned int j = c * i;
-
-      // Compute the number of bits in the current chunk.
-      unsigned int m = j + c > s ? s - j : c;
-
-      // Grab the bits of the integer that correspond to the current chunk.
-      unsigned int b = (it >> (s - j - m)) & (((unsigned long) 1 << m) - 1);
-
-      d += __builtin_popcount(this->components_[i] & b);
-    }
-
-    return d;
-  }
-
-  /**
    * Compute the bitwise AND of this and another vector.
    *
    * @param vector The other vector.

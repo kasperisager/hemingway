@@ -37,12 +37,6 @@ TEST_CASE("#* computes the dot product of two vectors") {
   REQUIRE(v1 * v2 == 2);
 }
 
-TEST_CASE("#* computes the dot product of a vector and an integer") {
-  lsh::vector v({1, 1, 1, 0});
-
-  REQUIRE(v * 10 == 2);
-}
-
 TEST_CASE("#& computes the bitwise AND of two vectors") {
   lsh::vector v1({1, 1, 0, 0});
   lsh::vector v2({1, 0, 0, 1});
