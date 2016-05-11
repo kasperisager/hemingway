@@ -7,7 +7,6 @@
 #include <vector>
 #include <unordered_map>
 #include <hemingway/vector.hpp>
-#include <hemingway/mask.hpp>
 
 namespace lsh {
   class table {
@@ -40,7 +39,7 @@ namespace lsh {
       /**
        * The bit masks used for constructing vector projections.
        */
-      std::vector<mask> masks_;
+      std::vector<vector> masks_;
 
       /**
        * The partitions containing the buckets of vectors.

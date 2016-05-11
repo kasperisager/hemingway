@@ -17,7 +17,17 @@ namespace lsh {
     this->partitions_.reserve(p);
 
     for (unsigned int i = 0; i < p; i++) {
-      this->masks_.push_back(classic_mask(d, s));
+      std::random_device random;
+      std::mt19937 generator(random());
+      std::uniform_int_distribution<> indices(0, d - 1);
+
+      std::vector<bool> c(d);
+
+      for (unsigned int i = 0; i < s; i++) {
+        c[indices(generator)] = 1;
+      }
+
+      this->masks_.push_back(vector(c));
       this->partitions_.push_back(partition());
     }
   }
@@ -36,20 +46,25 @@ namespace lsh {
     this->masks_.reserve(n - 1);
     this->partitions_.reserve(n - 1);
 
-    covering_mask::mapping m;
+    std::vector<vector> m;
 
     for (unsigned int i = 0; i < d; i++) {
       m.push_back(vector::random(n));
     }
 
     for (unsigned int i = 1; i < n; i++) {
-      std::vector<bool> c(n);
+      std::vector<bool> v(n);
+      std::vector<bool> c(d);
 
       for (unsigned int j = 0; j < n; j++) {
-        c[j] = (i >> (n - j - 1)) & 1;
+        v[j] = (i >> (n - j - 1)) & 1;
       }
 
-      this->masks_.push_back(covering_mask(d, vector(c), m));
+      for (unsigned int j = 0; j < d; j++) {
+        c[j] = (m[j] * v) % 2;
+      }
+
+      this->masks_.push_back(vector(c));
       this->partitions_.push_back(partition());
     }
   }
@@ -63,7 +78,7 @@ namespace lsh {
     unsigned int d = c.dimensions;
 
     this->dimensions_ = d;
-    this->masks_.push_back(brute_mask(d));
+    this->masks_.push_back(vector(std::vector<bool>(d)));
     this->partitions_.push_back(partition());
   }
 
@@ -92,7 +107,7 @@ namespace lsh {
     this->vectors_.insert({u, v});
 
     for (unsigned int i = 0; i < n; i++) {
-      vector k = this->masks_[i].project(v);
+      vector k = this->masks_[i] & v;
       bucket& b = this->partitions_[i][k.hash()];
 
       b.push_back(u);
@@ -157,7 +172,7 @@ namespace lsh {
     unsigned int best_d = UINT_MAX;
 
     for (unsigned int i = 0; i < n; i++) {
-      vector k = this->masks_[i].project(v);
+      vector k = this->masks_[i] & v;
       bucket& b = this->partitions_[i][k.hash()];
 
       for (unsigned int u: b) {
