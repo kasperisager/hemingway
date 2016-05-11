@@ -51,36 +51,53 @@ namespace lsh {
         /**
          * The number of dimensions of vectors in the table.
          */
-        unsigned int dimensions;
+        const unsigned int dimensions;
 
         /**
          * The number of bits to sample from each vector.
          */
-        unsigned short samples;
+        const unsigned short samples;
 
         /**
          * The number of paritions to use.
          */
-        unsigned short partitions;
+        const unsigned short partitions;
       };
 
       struct covering {
         /**
          * The number of dimensions of vectors in the table.
          */
-        unsigned int dimensions;
+        const unsigned int dimensions;
 
         /**
          * The radius to cover in the table.
          */
-        unsigned short radius;
+        const unsigned short radius;
       };
 
       struct brute {
         /**
          * The number of dimensions of vectors in the table.
          */
-        unsigned int dimensions;
+        const unsigned int dimensions;
+      };
+
+      struct statistics {
+        /**
+         * The number of partitions in the table.
+         */
+        const unsigned int partitions;
+
+        /**
+         * The total number of buckets in the table, counted across all partitions.
+         */
+        const unsigned int buckets;
+
+        /**
+         * The total number of vectors in the table, counted across all buckets.
+         */
+        const unsigned int vectors;
       };
 
       /**
@@ -131,6 +148,13 @@ namespace lsh {
        * @param vector The query vector to look up the nearest neighbour of.
        * @return The nearest neighbouring vector if found, otherwise a vector of size 0.
        */
-      vector query(const vector& vector);
+      vector query(const vector& vector) const;
+
+      /**
+       * Compute a number of statistics for this lookup table.
+       *
+       * @return The statistics computed for this lookup table.
+       */
+      statistics stats() const;
   };
 }

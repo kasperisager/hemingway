@@ -13,7 +13,7 @@ BENCHMARK(table, table_classic, 500, 12) {
   table({.dimensions = 128, .samples = 32, .partitions = 64});
 }
 
-BENCHMARK(table, table_covering, 500, 4) {
+BENCHMARK(table, table_covering, 100, 5) {
   table({.dimensions = 128, .radius = 5});
 }
 

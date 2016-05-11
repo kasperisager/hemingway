@@ -40,6 +40,20 @@ std::vector<vector> parse(std::string path) {
   return vectors;
 }
 
+void print_stats(const table& t) {
+  table::statistics s = t.stats();
+
+  std::cout << "               ";
+  std::cout << "Number of buckets: ";
+  std::cout << s.buckets / (1.0 * s.partitions);
+  std::cout << " buckets/partition" << std::endl;
+
+  std::cout << "               ";
+  std::cout << "Number of vectors: ";
+  std::cout << s.vectors / (1.0 * s.buckets);
+  std::cout << " vectors/bucket" << std::endl;
+}
+
 std::vector<vector> vs = parse("bench/data/vectors.bin");
 std::vector<vector> qs = parse("bench/data/queries.bin");
 
@@ -65,19 +79,35 @@ unsigned int qi;
 unsigned int runs = 50;
 
 BENCHMARK(table, insert_linear, runs, vn / runs) {
-  t_lin.insert(vs[vi++ % vn]);
+  unsigned int i = vi++ % vn;
+
+  t_lin.insert(vs[i]);
 }
 
 BENCHMARK(table, insert_classic, runs, vn / runs) {
-  t_cla.insert(vs[vi++ % vn]);
+  unsigned int i = vi++ % vn;
+
+  t_cla.insert(vs[i]);
+
+  if (i == vn - 1) {
+    print_stats(t_cla);
+  }
 }
 
 BENCHMARK(table, insert_covering, runs, vn / runs) {
-  t_cov.insert(vs[vi++ % vn]);
+  unsigned int i = vi++ % vn;
+
+  t_cov.insert(vs[i]);
+
+  if (i == vn - 1) {
+    print_stats(t_cov);
+  }
 }
 
 BENCHMARK(table, query_linear, runs, qn / runs) {
-  vector q = qs[qi++ % qn];
+  unsigned int i = qi++ % qn;
+
+  vector q = qs[i];
   vector r = t_lin.query(q);
 
   gt.push_back(r);

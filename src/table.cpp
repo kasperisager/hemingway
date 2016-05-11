@@ -158,7 +158,7 @@ namespace lsh {
    * @param vector The query vector to look up the nearest neighbour of.
    * @return The nearest neighbouring vector if found, otherwise a vector of size 0.
    */
-  vector table::query(const vector& v) {
+  vector table::query(const vector& v) const {
     if (this->dimensions_ != v.size()) {
       throw std::invalid_argument("Invalid vector size");
     }
@@ -173,10 +173,18 @@ namespace lsh {
 
     for (unsigned int i = 0; i < n; i++) {
       vector k = this->masks_[i] & v;
-      bucket& b = this->partitions_[i][k.hash()];
+      const partition& p = this->partitions_[i];
+
+      auto it = p.find(k.hash());
+
+      if (it == p.end()) {
+        continue;
+      }
+
+      const bucket& b = p.at(k.hash());
 
       for (unsigned int u: b) {
-        vector& c = this->vectors_.at(u);
+        const vector& c = this->vectors_.at(u);
 
         unsigned int d = vector::distance(v, c);
 
@@ -188,5 +196,34 @@ namespace lsh {
     }
 
     return best_c ? *best_c : vector({});
+  }
+
+  /**
+   * Compute a number of statistics for this lookup table.
+   *
+   * @return The statistics computed for this lookup table.
+   */
+  table::statistics table::stats() const {
+    unsigned int bs = 0;
+    unsigned int vs = 0;
+    unsigned int n = this->partitions_.size();
+
+    for (unsigned int i = 0; i < n; i++) {
+      const partition& p = this->partitions_[i];
+
+      bs += p.size();
+
+      for (const auto& it: p) {
+        const bucket& b = it.second;
+
+        vs += b.size();
+      }
+    }
+
+    return {
+      .partitions = (unsigned int) this->partitions_.size(),
+      .buckets = bs,
+      .vectors = vs
+    };
   }
 }
