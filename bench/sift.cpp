@@ -46,12 +46,12 @@ void print_stats(const table& t) {
   std::cout << "               ";
   std::cout << "Number of buckets: ";
   std::cout << s.buckets / (1.0 * s.partitions);
-  std::cout << " buckets/partition" << std::endl;
+  std::cout << " /partition" << std::endl;
 
   std::cout << "               ";
   std::cout << "Number of vectors: ";
   std::cout << s.vectors / (1.0 * s.buckets);
-  std::cout << " vectors/bucket" << std::endl;
+  std::cout << " /bucket" << std::endl;
 }
 
 std::vector<vector> vs = parse("bench/data/vectors.bin");
@@ -113,6 +113,8 @@ BENCHMARK(table, query_linear, runs, qn / runs) {
   gt.push_back(r);
 }
 
+unsigned int fn_cla;
+
 BENCHMARK(table, query_classic, runs, qn / runs) {
   unsigned int i = qi++ % qn;
 
@@ -121,18 +123,19 @@ BENCHMARK(table, query_classic, runs, qn / runs) {
 
   vector f = t_cla.query(q);
 
-  if (vector::distance(q, t) <= r) {
-    if (f.size() == 0) {
-      std::cout << "                ";
-      std::cout << "Incorrect result: Found nothing" << std::endl;
-    }
+  if (vector::distance(q, t) <= r && (f.size() == 0 || vector::distance(q, f) > r)) {
+    fn_cla++;
+  }
 
-    else if (vector::distance(q, f) > r) {
-      std::cout << "                ";
-      std::cout << "Incorrect result: False negative" << std::endl;
-    }
+  if (i == qn - 1) {
+    std::cout << "                 ";
+    std::cout << "False negatives: ";
+    std::cout << fn_cla / (1.0 * qn);
+    std::cout << " /query" << std::endl;
   }
 }
+
+unsigned int fn_cov;
 
 BENCHMARK(table, query_covering, runs, qn / runs) {
   unsigned int i = qi++ % qn;
@@ -142,15 +145,14 @@ BENCHMARK(table, query_covering, runs, qn / runs) {
 
   vector f = t_cov.query(q);
 
-  if (vector::distance(q, t) <= r) {
-    if (f.size() == 0) {
-      std::cout << "                ";
-      std::cout << "Incorrect result: Found nothing" << std::endl;
-    }
+  if (vector::distance(q, t) <= r && (f.size() == 0 || vector::distance(q, f) > r)) {
+    fn_cov++;
+  }
 
-    else if (vector::distance(q, f) > r) {
-      std::cout << "                ";
-      std::cout << "Incorrect result: False negative" << std::endl;
-    }
+  if (i == qn - 1) {
+    std::cout << "                 ";
+    std::cout << "False negatives: ";
+    std::cout << fn_cov / (1.0 * qn);
+    std::cout << " /query" << std::endl;
   }
 }
