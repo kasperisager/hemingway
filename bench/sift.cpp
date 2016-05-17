@@ -40,23 +40,8 @@ std::vector<vector> parse(std::string path) {
   return vectors;
 }
 
-void print_stats(const table& t) {
-  table::statistics s = t.stats();
-
-  std::cout << "               ";
-  std::cout << "Number of buckets: ";
-  std::cout << s.buckets / (1.0 * s.partitions);
-  std::cout << " /partition" << std::endl;
-
-  std::cout << "               ";
-  std::cout << "Number of vectors: ";
-  std::cout << s.vectors / (1.0 * s.buckets);
-  std::cout << " /bucket" << std::endl;
-}
-
 std::vector<vector> vs = parse("bench/data/vectors.bin");
 std::vector<vector> qs = parse("bench/data/queries.bin");
-
 std::vector<vector> gt;
 
 double delta = 0.01;
@@ -77,6 +62,42 @@ unsigned int vi;
 unsigned int qi;
 
 unsigned int runs = 50;
+
+void print_stats(const table& t) {
+  table::statistics s = t.stats();
+
+  std::cout << "               ";
+  std::cout << "Number of buckets: ";
+  std::cout << s.buckets / (1.0 * s.partitions);
+  std::cout << " /partition" << std::endl;
+
+  std::cout << "               ";
+  std::cout << "Number of vectors: ";
+  std::cout << s.vectors / (1.0 * s.buckets);
+  std::cout << " /bucket" << std::endl;
+}
+
+void print_results(const std::vector<vector>& fs) {
+  unsigned int fn = 0;
+
+  for (unsigned int i = 0; i < qn; i++) {
+    vector q = qs[i];
+    vector t = gt[i];
+
+    if (vector::distance(q, t) <= r) {
+      vector f =  fs[i];
+
+      if (f.size() == 0 || vector::distance(q, f) > r) {
+        fn++;
+      }
+    }
+  }
+
+  std::cout << "                 ";
+  std::cout << "False negatives: ";
+  std::cout << fn / (1.0 * qn);
+  std::cout << " /query" << std::endl;
+}
 
 BENCHMARK(table, insert_linear, runs, vn / runs) {
   unsigned int i = vi++ % vn;
@@ -113,7 +134,7 @@ BENCHMARK(table, query_linear, runs, qn / runs) {
   gt.push_back(r);
 }
 
-unsigned int fn_cla;
+std::vector<vector> vf_cla;
 
 BENCHMARK(table, query_classic, runs, qn / runs) {
   unsigned int i = qi++ % qn;
@@ -121,21 +142,14 @@ BENCHMARK(table, query_classic, runs, qn / runs) {
   vector q = qs[i];
   vector t = gt[i];
 
-  vector f = t_cla.query(q);
-
-  if (vector::distance(q, t) <= r && (f.size() == 0 || vector::distance(q, f) > r)) {
-    fn_cla++;
-  }
+  vf_cla.push_back(t_cla.query(q));
 
   if (i == qn - 1) {
-    std::cout << "                 ";
-    std::cout << "False negatives: ";
-    std::cout << fn_cla / (1.0 * qn);
-    std::cout << " /query" << std::endl;
+    print_results(vf_cla);
   }
 }
 
-unsigned int fn_cov;
+std::vector<vector> vf_cov;
 
 BENCHMARK(table, query_covering, runs, qn / runs) {
   unsigned int i = qi++ % qn;
@@ -143,16 +157,9 @@ BENCHMARK(table, query_covering, runs, qn / runs) {
   vector q = qs[i];
   vector t = gt[i];
 
-  vector f = t_cov.query(q);
-
-  if (vector::distance(q, t) <= r && (f.size() == 0 || vector::distance(q, f) > r)) {
-    fn_cov++;
-  }
+  vf_cov.push_back(t_cov.query(q));
 
   if (i == qn - 1) {
-    std::cout << "                 ";
-    std::cout << "False negatives: ";
-    std::cout << fn_cov / (1.0 * qn);
-    std::cout << " /query" << std::endl;
+    print_results(vf_cov);
   }
 }
