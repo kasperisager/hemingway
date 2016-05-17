@@ -40,7 +40,8 @@ namespace lsh {
   table::table(const covering& c) {
     unsigned int d = c.dimensions;
     unsigned int r = c.radius;
-    unsigned int n = 1 << (r + 1);
+    unsigned int x = r + 1;
+    unsigned int n = 1 << x;
 
     this->dimensions_ = d;
     this->masks_.reserve(n - 1);
@@ -49,15 +50,15 @@ namespace lsh {
     std::vector<vector> m;
 
     for (unsigned int i = 0; i < d; i++) {
-      m.push_back(vector::random(n));
+      m.push_back(vector::random(x));
     }
 
     for (unsigned int i = 1; i < n; i++) {
-      std::vector<bool> v(n);
+      std::vector<bool> v(x);
       std::vector<bool> c(d);
 
-      for (unsigned int j = 0; j < n; j++) {
-        v[j] = (i >> (n - j - 1)) & 1;
+      for (unsigned int j = 0; j < x; j++) {
+        v[j] = (i >> (x - j - 1)) & 1;
       }
 
       for (unsigned int j = 0; j < d; j++) {
