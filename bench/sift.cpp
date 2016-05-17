@@ -85,7 +85,7 @@ void print_results(const std::vector<vector>& fs) {
     vector t = gt[i];
 
     if (vector::distance(q, t) <= r) {
-      vector f =  fs[i];
+      vector f = fs[i];
 
       if (f.size() == 0 || vector::distance(q, f) > r) {
         fn++;
