@@ -190,7 +190,7 @@ namespace lsh {
       h ^= hasher(this->components_[i]) + (h << 6) + (h >> 2);
     }
 
-    return h ^ (h >> 32);
+    return h ^ (h >> sizeof(unsigned int));
   }
 
   /**
