@@ -1,3 +1,0 @@
-include_rules
-: foreach *.cpp |> !cc -c |> {output}
-: {output} |> !ar |> lsh.a

@@ -1,5 +1,12 @@
-.tup
-*.a
-*.o
-*.out
-.clang_complete
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+CTestTestfile.cmake
+Makefile
+Testing
+cmake_install.cmake
+install_manifest.txt
+
+src/libhemingway.a
+test/vector
+test/table
